@@ -17,7 +17,7 @@ public class CategoryTest {
      * @throws Exception
      */
     @Test
-    public void categoryBindingWithProductAndShop() throws Exception {
+    public void 카테고리에상품과매장걸기() throws Exception {
         Category c = new Category();
 
         c.addProduct(new Product());
@@ -44,7 +44,7 @@ public class CategoryTest {
      * @throws Exception
      */
     @Test
-    public void parentAndChildCategory() throws Exception {
+    public void 부모와자식카테고리연결() throws Exception {
 
         Category me = new Category();
         final Category parent = new Category();
@@ -69,7 +69,7 @@ public class CategoryTest {
      * @throws Exception
      */
     @Test
-    public void categoryLevelIsFour() throws Exception {
+    public void 대중소세4단계로구성하는카테고리레벨() throws Exception {
 
         // 대분류
         final Category c1 = new Category(1, CategoryLevel.A); // 대분류 카테고리

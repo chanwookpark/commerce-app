@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProductTest {
 
     @Test
-    public void productBasicInfo() throws Exception {
+    public void 상품기본속성() throws Exception {
         Product product = new Product();
 
         final long productId = 100L;
@@ -27,5 +27,11 @@ public class ProductTest {
         assertThat(product).hasFieldOrPropertyWithValue("displayName", displayName);
         assertThat(product).hasFieldOrPropertyWithValue("productName", productName);
         assertThat(product).hasFieldOrPropertyWithValue("displayCategory", displayCategory);
+    }
+
+    @Test
+    public void 상품이미지() throws Exception {
+
+
     }
 }
