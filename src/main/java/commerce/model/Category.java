@@ -8,11 +8,23 @@ import java.util.List;
  */
 public class Category {
 
+    private long categoryId;
+
     private List<Product> productList = new ArrayList<>();
     private List<Shop> shopList = new ArrayList<>();
 
     private Category parentCategory;
     private List<Category> childCategory = new ArrayList<>();
+
+    private CategoryLevel categoryLevel;
+
+    public Category() {
+    }
+
+    public Category(long id, CategoryLevel level) {
+        this.categoryId = id;
+        this.categoryLevel = level;
+    }
 
     public void addProduct(Product product) {
         this.productList.add(product);
@@ -22,6 +34,14 @@ public class Category {
     public void addShop(Shop shop) {
         this.shopList.add(shop);
         shop.setCategory(this);
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public List<Product> getProductList() {
@@ -34,7 +54,11 @@ public class Category {
 
 
     public void setParentCategory(Category parent) {
+        if (CategoryLevel.A.equals(this.categoryLevel)) {
+            throw new CategoryException("대분류 카테고리는 상위 카테고리를 지정할 수 없습니다");
+        }
         this.parentCategory = parent;
+        parentCategory.addChildCategory(this);
     }
 
     public Category getParentCategory() {
@@ -43,11 +67,24 @@ public class Category {
 
 
     public void addChildCategory(Category child) {
+        // TODO 현재는 객체 비교만... 'ID' 비교로 equals/hash 재정의 필요
+        if (childCategory.contains(child)) {
+            return;
+        }
         this.childCategory.add(child);
         child.setParentCategory(this);
     }
 
     public List<Category> getChildCategory() {
         return childCategory;
+    }
+
+
+    public void setCategoryLevel(CategoryLevel categoryLevel) {
+        this.categoryLevel = categoryLevel;
+    }
+
+    public CategoryLevel getCategoryLevel() {
+        return categoryLevel;
     }
 }
