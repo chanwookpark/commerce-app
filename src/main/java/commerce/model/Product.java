@@ -5,13 +5,44 @@ package commerce.model;
  */
 public class Product {
 
-    private Category category;
+    private long productId;
 
-    public void setCategory(Category category) {
-        this.category = category;
+    private String displayName;
+
+    private String productName;
+
+    private Category displayCategory;
+
+    public void setDisplayCategory(Category displayCategory) {
+        this.displayCategory = displayCategory;
     }
 
-    public Category getCategory() {
-        return category;
+    public Category getDisplayCategory() {
+        return displayCategory;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
+

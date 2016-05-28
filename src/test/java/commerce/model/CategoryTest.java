@@ -30,8 +30,8 @@ public class CategoryTest {
         assert 2 == c.getProductList().size();
         assert 3 == c.getShopList().size();
 
-        assert c.getProductList().get(0).getCategory() != null;
-        assert c.getProductList().get(1).getCategory() != null;
+        assert c.getProductList().get(0).getDisplayCategory() != null;
+        assert c.getProductList().get(1).getDisplayCategory() != null;
 
         assert c.getShopList().get(0).getCategory() != null;
         assert c.getShopList().get(1).getCategory() != null;
@@ -55,8 +55,9 @@ public class CategoryTest {
         me.addChildCategory(child1);
         me.addChildCategory(child2);
 
-        assert me.getParentCategory().equals(parent);
-        assert 2 == me.getChildCategory().size();
+        assertThat(me.getParentCategory()).isEqualTo(parent);
+        assertThat(me.getChildCategory().size()).isEqualTo(2);
+
         assert me.getChildCategory().get(0).equals(child1);
         assert me.getChildCategory().get(1).equals(child2);
         assert child1.getParentCategory().equals(me);

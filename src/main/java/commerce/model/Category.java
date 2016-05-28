@@ -28,7 +28,7 @@ public class Category {
 
     public void addProduct(Product product) {
         this.productList.add(product);
-        product.setCategory(this);
+        product.setDisplayCategory(this);
     }
 
     public void addShop(Shop shop) {
