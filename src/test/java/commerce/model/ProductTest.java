@@ -49,7 +49,7 @@ public class ProductTest {
     }
 
     @Test
-    public void sku만들기() throws Exception {
+    public void 옵션과옵셥값조합으로sku만들기() throws Exception {
         // 상품옵션값 만들기
         final ProductOptionValue colorOptionValue1 = new ProductOptionValue(1001, colorOption, "RED", "빨강색");
         final ProductOptionValue colorOptionValue2 = new ProductOptionValue(1002, colorOption, "BLUE", "파랑색");
@@ -61,7 +61,7 @@ public class ProductTest {
 
         final ProductOptionValue sizeOptionValue1 = new ProductOptionValue(2001, sizeOption, "XL", "X-Large");
 
-        // sku 생성 (=상품옵션*옵션값) : 생성은 관리도구에서.
+        // sku 생성 (=상품옵션*옵션값) : 생성은 관리도구에서 하겠지!!
         final List<ProductOptionValue> ovl = Arrays.asList(colorOptionValue1, sizeOptionValue1);
         final long retailPrice = 1000;
         final long salesPrice = 900;
@@ -74,4 +74,6 @@ public class ProductTest {
 
         ProductAssert.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
     }
+
+    //TODO 추가 구성상품,
 }
