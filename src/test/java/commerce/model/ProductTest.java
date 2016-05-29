@@ -2,6 +2,9 @@ package commerce.model;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -9,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ProductTest {
 
+    // 기본속성 추가 필요
     @Test
     public void 상품기본속성() throws Exception {
         Product product = new Product();
@@ -29,9 +33,45 @@ public class ProductTest {
         assertThat(product).hasFieldOrPropertyWithValue("displayCategory", displayCategory);
     }
 
+    final static ProductOption colorOption = new ProductOption(1, "color", "색상");
+    final static ProductOption sizeOption = new ProductOption(2, "size", "사이즈");
+
     @Test
-    public void 상품이미지() throws Exception {
+    public void 상품옵션만들기() throws Exception {
+        //상품 만들기
+        Product product = new Product(100, "운동화", CategoryUtils.createBLevel(1, "나이키"));
 
+        // 상품옵션 만들기 - 컬러, 사이즈
+        product.addOption(colorOption);
+        product.addOption(sizeOption);
 
+        assertThat(product.getOptionList().size()).isEqualTo(2);
+    }
+
+    @Test
+    public void sku만들기() throws Exception {
+        // 상품옵션값 만들기
+        final ProductOptionValue colorOptionValue1 = new ProductOptionValue(1001, colorOption, "RED", "빨강색");
+        final ProductOptionValue colorOptionValue2 = new ProductOptionValue(1002, colorOption, "BLUE", "파랑색");
+        final ProductOptionValue colorOptionValue3 = new ProductOptionValue(1003, colorOption, "YELLOW", "노란색");
+
+        ProductAssert.isEqualsProductOptionValue(colorOptionValue1, 1001L, colorOption, "RED", "빨강색");
+        ProductAssert.isEqualsProductOptionValue(colorOptionValue2, 1002L, colorOption, "BLUE", "파랑색");
+        ProductAssert.isEqualsProductOptionValue(colorOptionValue3, 1003L, colorOption, "YELLOW", "노란색");
+
+        final ProductOptionValue sizeOptionValue1 = new ProductOptionValue(2001, sizeOption, "XL", "X-Large");
+
+        // sku 생성 (=상품옵션*옵션값) : 생성은 관리도구에서.
+        final List<ProductOptionValue> ovl = Arrays.asList(colorOptionValue1, sizeOptionValue1);
+        final long retailPrice = 1000;
+        final long salesPrice = 900;
+        final long stock = 23;
+
+        final Sku sku1 = new Sku(1L, ovl);
+        sku1.setRetailPrice(retailPrice);
+        sku1.setSalesPrice(salesPrice);
+        sku1.setStock(stock);
+
+        ProductAssert.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
     }
 }

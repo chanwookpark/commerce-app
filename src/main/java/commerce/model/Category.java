@@ -17,6 +17,7 @@ public class Category {
     private List<Category> childCategory = new ArrayList<>();
 
     private CategoryLevel categoryLevel;
+    private String displayName;
 
     public Category() {
     }
@@ -86,5 +87,13 @@ public class Category {
 
     public CategoryLevel getCategoryLevel() {
         return categoryLevel;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 }
