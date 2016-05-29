@@ -75,5 +75,5 @@ public class ProductTest {
         ProductAssert.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
     }
 
-    //TODO 추가 구성상품,
+    //TODO 상품 유형 별 엔티티, 추가 구성상품,
 }

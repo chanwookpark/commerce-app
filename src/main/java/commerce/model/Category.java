@@ -1,5 +1,7 @@
 package commerce.model;
 
+import commerce.service.CategoryException;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -13,6 +13,13 @@ public class Sku {
     private long salesPrice;
     private long stock;
 
+    public Sku() {
+    }
+
+    public Sku(long skuId) {
+        this.skuId = skuId;
+    }
+
     public Sku(long skuId, List<ProductOptionValue> optionValueList) {
         this.skuId = skuId;
         this.optionValueList = optionValueList;
@@ -56,5 +63,9 @@ public class Sku {
 
     public long getStock() {
         return stock;
+    }
+
+    public boolean hasQuantity(int orderQuantity) {
+        return getStock() >= orderQuantity;
     }
 }
