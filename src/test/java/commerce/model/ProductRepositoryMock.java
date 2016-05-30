@@ -28,4 +28,13 @@ public class ProductRepositoryMock implements ProductRepository {
         // TODO ID에 해당하는 SKU가 모두 없을 때는??
         return skuIdList.stream().map(id -> skuMap.get(id)).collect(Collectors.toList());
     }
+
+    @Override
+    public Sku findSku(long skuId) {
+        return skuMap.get(skuId);
+    }
+
+    public void addSku(long skuId, long stock, long salePrice) {
+        this.skuMap.put(skuId, new Sku(skuId, stock, salePrice));
+    }
 }

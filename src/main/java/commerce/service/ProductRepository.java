@@ -11,4 +11,5 @@ public interface ProductRepository {
 
     List<Sku> findSku(List<Long> skuIdList);
 
+    Sku findSku(long skuId);
 }

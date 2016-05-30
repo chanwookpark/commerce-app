@@ -25,6 +25,12 @@ public class Sku {
         this.optionValueList = optionValueList;
     }
 
+    public Sku(long skuId, long stock, long salesPrice) {
+        this.salesPrice = salesPrice;
+        this.skuId = skuId;
+        this.stock = stock;
+    }
+
     public List<ProductOptionValue> getOptionValueList() {
         return optionValueList;
     }

@@ -1,6 +1,7 @@
 package commerce.model;
 
 import commerce.service.OrderService;
+import commerce.service.PriceService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,11 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OrderTest {
 
     final OrderService orderService = new OrderService();
+    final PriceService priceService = new PriceService();
+
     final ProductRepositoryMock productMockRepository = new ProductRepositoryMock();
 
     @Before
     public void setUp() throws Exception {
         orderService.setProductRepository(productMockRepository);
+        priceService.setProductRepository(productMockRepository);
     }
 
     @Test
@@ -45,6 +49,26 @@ public class OrderTest {
         assertThat(order.getItemList().get(0).getOrderQuantity()).isEqualTo(1);
         assertThat(order.getItemList().get(1).getSkuId()).isEqualTo(skuItemId2);
         assertThat(order.getItemList().get(1).getOrderQuantity()).isEqualTo(2);
+    }
+
+    @Test
+    public void 기본적인가격계산() throws Exception {
+        final int skuId1 = 10;
+        final int skuId2 = 11;
+        productMockRepository.addSku(skuId1, 2, 100);
+        productMockRepository.addSku(skuId2, 3, 50);
+
+        // 가격 계산은 주문 아이템이 만들어진 후에 시작
+
+        Order order = new Order();
+        order.addItem(skuId1, 1); //개당 100원
+        order.addItem(skuId2, 3); //개당 50원
+
+        // 주문 가격 생성
+        OrderPrice orderPrice = priceService.makeOrderPrice(order);
+
+        assertThat(orderPrice).isNotNull();
+        assertThat(orderPrice.calculate()).isEqualTo(250);
 
     }
 }
