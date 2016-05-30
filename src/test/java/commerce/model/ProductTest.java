@@ -75,5 +75,20 @@ public class ProductTest {
         ProductAssert.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
     }
 
-    //TODO 상품 유형 별 엔티티, 추가 구성상품,
+    @Test
+    public void 상품유형추가() throws Exception {
+        Product p = new Product();
+
+        // 기본 상품 유형은 일반상품
+        assertThat(p.getProductType()).isEqualTo(ProductType.P);
+
+        p.setProductType(ProductType.G);
+        assertThat(p.getProductType()).isEqualTo(ProductType.G);
+
+        //TODO 유형 별 제약 조건 추가
+        //TODO 엔티티 구조로 변경 검토
+
+    }
+
+    //TODO 재고, 추가 구성상품,
 }

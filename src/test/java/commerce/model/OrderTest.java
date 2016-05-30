@@ -69,6 +69,5 @@ public class OrderTest {
 
         assertThat(orderPrice).isNotNull();
         assertThat(orderPrice.calculate()).isEqualTo(250);
-
     }
 }

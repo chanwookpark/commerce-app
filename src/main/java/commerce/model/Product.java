@@ -16,6 +16,8 @@ public class Product {
 
     private Category displayCategory;
 
+    private ProductType productType = ProductType.P;
+
     private Set<ProductOption> optionList = new HashSet<>();
 
     public Product() {
@@ -69,6 +71,14 @@ public class Product {
 
     public void setOptionList(Set<ProductOption> optionList) {
         this.optionList = optionList;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 }
 

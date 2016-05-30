@@ -6,12 +6,16 @@ import java.util.List;
  * @author chanwook
  */
 public class Sku {
+
     private long skuId;
 
     private List<ProductOptionValue> optionValueList;
+
     private long retailPrice;
+
     private long salesPrice;
-    private long stock;
+
+    private long stock; //TODO 주문 가능 수량 별도 관리하도록 추가?
 
     public Sku() {
     }

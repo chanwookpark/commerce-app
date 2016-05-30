@@ -11,6 +11,7 @@ public class Order {
     private long orderId;
 
     private List<OrderItem> itemList = new ArrayList<>();
+    private OrderPrice orderPrice;
 
     public void createOrderId() {
         this.orderId = System.nanoTime();
@@ -31,5 +32,13 @@ public class Order {
 
     public List<OrderItem> getItemList() {
         return itemList;
+    }
+
+    public void setOrderPrice(OrderPrice orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public OrderPrice getOrderPrice() {
+        return orderPrice;
     }
 }
