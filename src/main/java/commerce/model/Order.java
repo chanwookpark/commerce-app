@@ -1,7 +1,9 @@
 package commerce.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author chanwook
@@ -11,7 +13,12 @@ public class Order {
     private long orderId;
 
     private List<OrderItem> itemList = new ArrayList<>();
+
     private OrderPrice orderPrice;
+
+    private OrderStatus orderStatus;
+
+    private Set<OrderStatus> orderHistory = new HashSet<>();
 
     public void createOrderId() {
         this.orderId = System.nanoTime();
@@ -30,15 +37,41 @@ public class Order {
         this.itemList.add(orderItem);
     }
 
-    public List<OrderItem> getItemList() {
-        return itemList;
-    }
-
     public void setOrderPrice(OrderPrice orderPrice) {
         this.orderPrice = orderPrice;
     }
 
     public OrderPrice getOrderPrice() {
         return orderPrice;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Set<OrderStatus> getOrderHistory() {
+        return orderHistory;
+    }
+
+    public void setOrderHistory(Set<OrderStatus> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
+    public List<OrderItem> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<OrderItem> itemList) {
+        this.itemList = itemList;
+    }
+
+    public void changeOrderStatus(OrderStatus.OrderStatusCode orderStatusCode) {
+        final OrderStatus orderStatus = new OrderStatus(orderStatusCode, this);
+        this.setOrderStatus(orderStatus);
+        this.orderHistory.add(orderStatus);
     }
 }

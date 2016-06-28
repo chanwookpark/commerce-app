@@ -4,6 +4,7 @@ package commerce.model;
  * @author chanwook
  */
 public class OrderRequestItem {
+
     private final Sku sku;
     private final int orderQuantity;
 

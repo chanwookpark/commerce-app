@@ -1,9 +1,10 @@
 package commerce.service;
 
-import commerce.model.Cart;
+import commerce.model.OrderRequestItem;
 import commerce.model.Sku;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -17,9 +18,10 @@ public class ProductStockCheckValidator implements OrderValidator {
     @Override
     public void validate(ValidationSource validationSource) {
         final List<Sku> skuList = (List<Sku>) validationSource.get("skuList");
-        final Cart cart = (Cart) validationSource.get("orderRequest");
+        final Set<OrderRequestItem> itemList =
+                (Set<OrderRequestItem>) validationSource.get("orderRequestItemList");
 
-        cart.getItemList().forEach(item -> {
+        itemList.forEach(item -> {
             final Sku targetSku = getSku(skuList, item.getSku().getSkuId());
             if (!targetSku.hasQuantity(item.getOrderQuantity())) {
                 LOGGER.error("주문 가능 재고가 부족해 주문이 정상 접수하지 못했습니다.[SKU번호:" + targetSku.getSkuId() + ", 주문수량:" + item.getOrderQuantity() + ", 재고: " + targetSku.getStock() + "]");

@@ -1,9 +1,12 @@
 package commerce.model;
 
 import commerce.service.OrderService;
+import commerce.service.PaymentService;
 import commerce.service.PriceService;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,8 +20,10 @@ public class OrderTest {
 
     final OrderService orderService = new OrderService();
     final PriceService priceService = new PriceService();
+    final PaymentService paymentService = new PaymentService();
 
     final ProductRepositoryMock productMockRepository = new ProductRepositoryMock();
+
 
     @Before
     public void setUp() throws Exception {
@@ -69,5 +74,43 @@ public class OrderTest {
 
         assertThat(orderPrice).isNotNull();
         assertThat(orderPrice.calculate()).isEqualTo(250);
+    }
+
+    @Test
+    public void 주문상태처리() throws Exception {
+        // 주문 생성 단계
+        final Order order = orderService.createOrder(new Cart());
+        assertOrderStatus(order, OrderStatus.OrderStatusCode.A, 1);
+
+        // 주문 결재 완료 상태 -> 직접 환불 가능 상태
+        paymentService.completePayment(order);
+        assertOrderStatus(order, OrderStatus.OrderStatusCode.B, 2);
+
+        // 주문 처리 완료 상태 (판매자 확인 상태) -> 판매자 확인 후 환불/교환 가능
+        orderService.completeOrder(order);
+        assertOrderStatus(order, OrderStatus.OrderStatusCode.C, 3);
+
+        /* 배송 상태는 별도로 관리 */
+
+        // 환불 주문 상태 생성
+        Order refundOrder = orderService.createRefundOrder(order);
+        assertOrderStatus(refundOrder, OrderStatus.OrderStatusCode.D, 1);
+        assertOrderStatus(order, OrderStatus.OrderStatusCode.C, 3); //원주문은 주문완료 상태로 유지
+
+        // 반품/교환
+        //TODO
+
+    }
+
+    //TODO 환불, 반품교환 주문 처리
+
+    private void assertOrderStatus(Order order, OrderStatus.OrderStatusCode orderStatusCode, int expectedStatusHistory) throws InterruptedException {
+        final OrderStatus orderStatus = order.getOrderStatus();
+
+        assertThat(orderStatus.getOrder().getOrderId()).isEqualTo(order.getOrderId());
+        assertThat(orderStatus.getCode()).isEqualTo(orderStatusCode);
+        Thread.sleep(100);
+        assertThat(orderStatus.getUpdated().isBefore(LocalDateTime.now())).isTrue(); //FIXME 더 나이스한 방법은?
+        assertThat(order.getOrderHistory().size()).isEqualTo(expectedStatusHistory);
     }
 }
