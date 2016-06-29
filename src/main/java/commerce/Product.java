@@ -1,4 +1,4 @@
-package commerce.model;
+package commerce;
 
 import java.util.HashSet;
 import java.util.Set;

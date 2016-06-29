@@ -1,8 +1,8 @@
 package commerce.service;
 
-import commerce.model.Order;
-import commerce.model.OrderPrice;
-import commerce.model.Sku;
+import commerce.Order;
+import commerce.OrderPrice;
+import commerce.Sku;
 
 /**
  * @author chanwook

@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.model.OrderRequestItem;
+import commerce.OrderRequestItem;
 
 import java.util.Collection;
 import java.util.List;

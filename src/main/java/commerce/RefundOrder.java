@@ -1,4 +1,4 @@
-package commerce.model;
+package commerce;
 
 /**
  * 환불주문 엔티티

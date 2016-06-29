@@ -1,7 +1,7 @@
 package commerce.service;
 
-import commerce.model.OrderRequestItem;
-import commerce.model.Sku;
+import commerce.OrderRequestItem;
+import commerce.Sku;
 
 import java.util.List;
 import java.util.Set;

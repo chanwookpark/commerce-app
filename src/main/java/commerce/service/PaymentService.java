@@ -1,7 +1,7 @@
 package commerce.service;
 
-import commerce.model.Order;
-import commerce.model.OrderStatus;
+import commerce.Order;
+import commerce.OrderStatus;
 
 /**
  * @author chanwook

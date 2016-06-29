@@ -1,4 +1,4 @@
-package commerce.model;
+package commerce;
 
 import commerce.service.OrderService;
 import commerce.service.PaymentService;

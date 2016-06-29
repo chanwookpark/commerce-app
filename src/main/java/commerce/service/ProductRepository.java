@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.model.Sku;
+import commerce.Sku;
 
 import java.util.List;
 

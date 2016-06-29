@@ -1,4 +1,4 @@
-package commerce.model;
+package commerce;
 
 import java.time.LocalDateTime;
 

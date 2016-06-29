@@ -1,4 +1,4 @@
-package commerce.model;
+package commerce;
 
 import commerce.service.CartService;
 import org.junit.Test;
