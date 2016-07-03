@@ -1,5 +1,7 @@
-package commerce;
+package commerce.unit;
 
+import commerce.CategoryTestSupport;
+import commerce.ProductTestSupport;
 import commerce.entity.*;
 import org.junit.Test;
 
@@ -40,7 +42,7 @@ public class ProductTest {
     @Test
     public void 상품옵션만들기() throws Exception {
         //상품 만들기
-        Product product = new Product(100, "운동화", CategoryUtils.createBLevel(1, "나이키"));
+        Product product = new Product(100, "운동화", CategoryTestSupport.createBLevel(1, "나이키"));
 
         // 상품옵션 만들기 - 컬러, 사이즈
         product.addOption(colorOption);
@@ -56,9 +58,9 @@ public class ProductTest {
         final ProductOptionValue colorOptionValue2 = new ProductOptionValue(1002, colorOption, "BLUE", "파랑색");
         final ProductOptionValue colorOptionValue3 = new ProductOptionValue(1003, colorOption, "YELLOW", "노란색");
 
-        ProductAssert.isEqualsProductOptionValue(colorOptionValue1, 1001L, colorOption, "RED", "빨강색");
-        ProductAssert.isEqualsProductOptionValue(colorOptionValue2, 1002L, colorOption, "BLUE", "파랑색");
-        ProductAssert.isEqualsProductOptionValue(colorOptionValue3, 1003L, colorOption, "YELLOW", "노란색");
+        ProductTestSupport.isEqualsProductOptionValue(colorOptionValue1, 1001L, colorOption, "RED", "빨강색");
+        ProductTestSupport.isEqualsProductOptionValue(colorOptionValue2, 1002L, colorOption, "BLUE", "파랑색");
+        ProductTestSupport.isEqualsProductOptionValue(colorOptionValue3, 1003L, colorOption, "YELLOW", "노란색");
 
         final ProductOptionValue sizeOptionValue1 = new ProductOptionValue(2001, sizeOption, "XL", "X-Large");
 
@@ -73,7 +75,7 @@ public class ProductTest {
         sku1.setSalesPrice(salesPrice);
         sku1.setStock(stock);
 
-        ProductAssert.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
+        ProductTestSupport.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);
     }
 
     @Test

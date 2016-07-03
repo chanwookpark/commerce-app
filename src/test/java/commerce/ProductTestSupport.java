@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author chanwook
  */
-public class ProductAssert {
+public class ProductTestSupport {
     public static void isEqualsProductOptionValue(ProductOptionValue optionValue, Object... values) {
         assertThat(optionValue).isNotNull();
         assertThat(optionValue.getId()).isEqualTo(values[0]);

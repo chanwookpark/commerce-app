@@ -1,5 +1,6 @@
-package commerce;
+package commerce.unit;
 
+import commerce.ProductRepositoryMock;
 import commerce.entity.*;
 import commerce.service.OrderService;
 import commerce.service.PaymentService;

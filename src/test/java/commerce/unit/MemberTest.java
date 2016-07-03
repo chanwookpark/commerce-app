@@ -1,4 +1,4 @@
-package commerce;
+package commerce.unit;
 
 import commerce.entity.Address;
 import commerce.entity.Corporation;

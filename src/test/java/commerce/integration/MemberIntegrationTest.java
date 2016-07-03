@@ -1,4 +1,4 @@
-package commerce;
+package commerce.integration;
 
 import commerce.dto.MemberSignUpResponse;
 import commerce.entity.Corporation;
