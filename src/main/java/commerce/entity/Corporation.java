@@ -25,7 +25,11 @@ public class Corporation {
 
     private String corporationName;
 
-    @OneToMany(mappedBy = "affiliated", orphanRemoval = true)
+    @OneToMany(mappedBy = "affiliated")
     private List<Member> memberList = new ArrayList<>();
+
+    public Corporation(String corporationName) {
+        this.corporationName = corporationName;
+    }
 
 }

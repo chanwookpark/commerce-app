@@ -3,6 +3,7 @@ package commerce;
 import commerce.dto.MemberSignUpResponse;
 import commerce.entity.Corporation;
 import commerce.entity.Member;
+import commerce.repository.CorporationJpaRepository;
 import commerce.repository.MemberJpaRepository;
 import commerce.service.MemberSignUpService;
 import org.junit.Test;
@@ -28,6 +29,9 @@ public class MemberIntegrationTest {
 
     @Autowired
     MemberJpaRepository mr;
+
+    @Autowired
+    CorporationJpaRepository cr;
 
     @Autowired
     MemberSignUpService ms;
@@ -67,5 +71,34 @@ public class MemberIntegrationTest {
         //DB 확인
         final Member persistedMember = em.find(Member.class, signUpResponse.getMember().getMemberNumber());
         assertThat(persistedMember).isNotNull();
+    }
+
+    @Test
+    public void 회원가입_기업회원() throws Exception {
+        final Member newMember = new Member();
+        newMember.setMemberId("ironman");
+        newMember.setPassword("1234");
+        newMember.setMemberName("ironman");
+        newMember.setMemberType(Member.MemberType.E);
+
+        // 기업회원은 소속회사를 지정하지 않으면 에러 발생!!!
+        newMember.setAffiliated(null);
+
+        MemberSignUpResponse response = ms.signUp(newMember);
+        assertThat(response.isResult()).isFalse();
+
+        // 소속회사 설정
+        final Corporation corporation = new Corporation("어벤저스");
+        cr.save(corporation);// 소속사 생성 (cascade 설정 안하는게 맞아)
+        newMember.setAffiliated(corporation);
+
+        response = ms.signUp(newMember);
+        assertThat(response.isResult()).isTrue();
+        assertThat(response.getMember().getMemberNumber()).isGreaterThan(0);
+        assertThat(response.getMember().getMemberStatus()).isEqualTo(Member.MemberStatus.H);
+
+        //DB 확인
+        final Member persisted = em.find(Member.class, response.getMember().getMemberNumber());
+        assertThat(persisted.getAffiliated().getCorporationId()).isEqualTo(corporation.getCorporationId());
     }
 }
