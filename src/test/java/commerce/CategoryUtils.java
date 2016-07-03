@@ -1,5 +1,8 @@
 package commerce;
 
+import commerce.entity.Category;
+import commerce.entity.CategoryLevel;
+
 /**
  * @author chanwook
  */

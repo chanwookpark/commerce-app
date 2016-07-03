@@ -1,5 +1,6 @@
 package commerce;
 
+import commerce.entity.Sku;
 import commerce.service.ProductRepository;
 
 import java.util.HashMap;

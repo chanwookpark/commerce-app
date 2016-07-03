@@ -1,5 +1,8 @@
 package commerce;
 
+import commerce.entity.ProductOptionValue;
+import commerce.entity.Sku;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

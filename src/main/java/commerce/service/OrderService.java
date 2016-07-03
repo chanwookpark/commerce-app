@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.*;
+import commerce.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;

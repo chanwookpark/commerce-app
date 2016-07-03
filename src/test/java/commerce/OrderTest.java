@@ -1,5 +1,6 @@
 package commerce;
 
+import commerce.entity.*;
 import commerce.service.OrderService;
 import commerce.service.PaymentService;
 import commerce.service.PriceService;

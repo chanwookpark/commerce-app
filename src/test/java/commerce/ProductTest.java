@@ -1,5 +1,6 @@
 package commerce;
 
+import commerce.entity.*;
 import org.junit.Test;
 
 import java.util.Arrays;

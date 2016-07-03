@@ -1,4 +1,4 @@
-package commerce;
+package commerce.entity;
 
 import commerce.service.CategoryException;
 

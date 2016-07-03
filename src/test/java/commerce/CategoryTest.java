@@ -1,5 +1,9 @@
 package commerce;
 
+import commerce.entity.Category;
+import commerce.entity.CategoryLevel;
+import commerce.entity.Product;
+import commerce.entity.Shop;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

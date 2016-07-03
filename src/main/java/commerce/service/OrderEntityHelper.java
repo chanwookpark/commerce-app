@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.OrderRequestItem;
+import commerce.entity.OrderRequestItem;
 
 import java.util.Collection;
 import java.util.List;

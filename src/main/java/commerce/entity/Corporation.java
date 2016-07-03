@@ -1,4 +1,4 @@
-package commerce;
+package commerce.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author chanwook
@@ -15,16 +17,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class Corporation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long memberNumber;
+    private long corporationId;
 
-    @Column(nullable = false, unique = true, updatable = false, length = 20)
-    private String memberId;
+    private String corporationName;
 
-    public Member(String memberId) {
-        this.memberId = memberId;
-    }
+    @OneToMany(mappedBy = "affiliated", orphanRemoval = true)
+    private List<Member> memberList = new ArrayList<>();
+
 }

@@ -1,5 +1,8 @@
 package commerce;
 
+import commerce.entity.Cart;
+import commerce.entity.Member;
+import commerce.entity.Sku;
 import commerce.service.CartService;
 import org.junit.Test;
 
