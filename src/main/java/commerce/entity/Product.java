@@ -1,19 +1,46 @@
 package commerce.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author chanwook
  */
-public class Product extends ProductBaseAttribute {
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+public class Product {
 
+    @Id
+//    @GeneratedValue //FIXME 교체
+    private String productId;
+
+    private String displayName;
+
+    private String productName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Category displayCategory;
+
+    private ProductType productType = ProductType.P;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "PRD_PRD_OPTION",
+            joinColumns = {@JoinColumn(name = "productId")},
+            inverseJoinColumns = {@JoinColumn(name = "optionId")})
     private Set<ProductOption> optionList = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(long productId, String productName, Category displayCategory) {
+    public Product(String productId, String productName, Category displayCategory) {
         this.productId = productId;
         this.productName = productName;
         this.displayCategory = displayCategory;
@@ -23,14 +50,5 @@ public class Product extends ProductBaseAttribute {
         this.optionList.add(option);
     }
 
-    public Set<ProductOption> getOptionList() {
-        return optionList;
-    }
-
-    public void setOptionList(Set<ProductOption> optionList) {
-        this.optionList = optionList;
-    }
-
-    
 }
 

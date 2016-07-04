@@ -42,8 +42,8 @@ public class OrderTest {
         productMockRepository.addStock(skuItemId2, 2);
 
         Cart cart = new Cart();
-        OrderRequestItem itemRequest1 = new OrderRequestItem(new Sku(skuItemId1), 1);
-        OrderRequestItem itemRequest2 = new OrderRequestItem(new Sku(skuItemId2), 2);
+        CartItem itemRequest1 = new CartItem(new Sku(skuItemId1), 1);
+        CartItem itemRequest2 = new CartItem(new Sku(skuItemId2), 2);
         cart.addItem(itemRequest1);
         cart.addItem(itemRequest2);
 

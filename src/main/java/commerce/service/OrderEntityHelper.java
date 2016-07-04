@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.entity.OrderRequestItem;
+import commerce.entity.CartItem;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 public class OrderEntityHelper {
 
-    public static List<Long> getSkuIdList(Collection<OrderRequestItem> itemList) {
+    public static List<Long> getSkuIdList(Collection<CartItem> itemList) {
         return itemList.stream().map(i -> i.getSku().getSkuId()).collect(Collectors.toList());
     }
 }

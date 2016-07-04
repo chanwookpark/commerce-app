@@ -1,6 +1,6 @@
 package commerce.service;
 
-import commerce.entity.OrderRequestItem;
+import commerce.entity.CartItem;
 import commerce.entity.Sku;
 
 import java.util.List;
@@ -18,8 +18,8 @@ public class ProductStockCheckValidator implements OrderValidator {
     @Override
     public void validate(ValidationSource validationSource) {
         final List<Sku> skuList = (List<Sku>) validationSource.get("skuList");
-        final Set<OrderRequestItem> itemList =
-                (Set<OrderRequestItem>) validationSource.get("orderRequestItemList");
+        final Set<CartItem> itemList =
+                (Set<CartItem>) validationSource.get("orderRequestItemList");
 
         itemList.forEach(item -> {
             final Sku targetSku = getSku(skuList, item.getSku().getSkuId());

@@ -1,24 +1,45 @@
 package commerce.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author chanwook
  */
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sku {
 
+    @Id
+    @GeneratedValue
     private long skuId;
 
-    private List<ProductOptionValue> optionValueList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId")
+    private Product product;
+
+    private String skuDisplayName;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "SKU_PRD_ATTR_VALUE",
+            joinColumns = {@JoinColumn(name = "skuId")},
+            inverseJoinColumns = {@JoinColumn(name = "valueId")})
+    private List<ProductOptionValue> optionValueList = new ArrayList<>();
 
     private long retailPrice;
 
     private long salesPrice;
 
     private long stock; //TODO 주문 가능 수량 별도 관리하도록 추가?
-
-    public Sku() {
-    }
 
     public Sku(long skuId) {
         this.skuId = skuId;
@@ -33,46 +54,6 @@ public class Sku {
         this.salesPrice = salesPrice;
         this.skuId = skuId;
         this.stock = stock;
-    }
-
-    public List<ProductOptionValue> getOptionValueList() {
-        return optionValueList;
-    }
-
-    public void setOptionValueList(List<ProductOptionValue> optionValueList) {
-        this.optionValueList = optionValueList;
-    }
-
-    public long getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(long skuId) {
-        this.skuId = skuId;
-    }
-
-    public void setRetailPrice(long retailPrice) {
-        this.retailPrice = retailPrice;
-    }
-
-    public long getRetailPrice() {
-        return retailPrice;
-    }
-
-    public void setSalesPrice(long salesPrice) {
-        this.salesPrice = salesPrice;
-    }
-
-    public long getSalesPrice() {
-        return salesPrice;
-    }
-
-    public void setStock(long stock) {
-        this.stock = stock;
-    }
-
-    public long getStock() {
-        return stock;
     }
 
     public boolean hasQuantity(int orderQuantity) {

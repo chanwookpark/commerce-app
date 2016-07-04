@@ -20,7 +20,7 @@ public class ProductTest {
     public void 상품기본속성() throws Exception {
         Product product = new Product();
 
-        final long productId = 100L;
+        final String productId = "P001";
         final String displayName = "짱짱한 성능! 저렴한 가격! 울트라 최신 노트북!";
         final String productName = "APPLE-노트북-01";
         final Category displayCategory = new Category();
@@ -42,7 +42,7 @@ public class ProductTest {
     @Test
     public void 상품옵션만들기() throws Exception {
         //상품 만들기
-        Product product = new Product(100, "운동화", CategoryTestSupport.createBLevel(1, "나이키"));
+        Product product = new Product("P002", "운동화", CategoryTestSupport.createBLevel(1, "나이키"));
 
         // 상품옵션 만들기 - 컬러, 사이즈
         product.addOption(colorOption);

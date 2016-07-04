@@ -22,14 +22,14 @@ public class OrderService {
 
     public Order createOrder(Cart cart) {
 
-        final Set<OrderRequestItem> itemList = cart.getItemList();
+        final Set<CartItem> itemList = cart.getItemList();
 
         final Order order = createOrder(itemList);
 
         return order;
     }
 
-    public Order createOrder(Set<OrderRequestItem> itemList) {
+    public Order createOrder(Set<CartItem> itemList) {
         List<Sku> orderedSku = productRepository.findSku(OrderEntityHelper.getSkuIdList(itemList));
 
         final ValidationSource validationSource =
@@ -64,7 +64,7 @@ public class OrderService {
      * @param order
      * @param itemList
      */
-    private void addOrderItem(Order order, Set<OrderRequestItem> itemList) {
+    private void addOrderItem(Order order, Set<CartItem> itemList) {
         itemList.forEach(i -> order.addItem(i.getSku().getSkuId(), i.getOrderQuantity()));
     }
 

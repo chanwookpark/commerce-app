@@ -5,23 +5,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * @author chanwook
  */
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cart {
 
+    @Id
+    @GeneratedValue
+    private long cartId;
+
+    @ManyToOne
+    @JoinColumn(nullable = false, updatable = false, name = "OWNER_MEMBER_ID")
     private Member owner;
 
-    final Set<OrderRequestItem> itemList = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    final Set<CartItem> itemList = new HashSet<>();
 
-    public void addItem(OrderRequestItem itemRequest) {
+    public void addItem(CartItem itemRequest) {
         this.itemList.add(itemRequest);
     }
 }

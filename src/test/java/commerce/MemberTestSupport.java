@@ -10,9 +10,12 @@ import java.util.Map;
  */
 public class MemberTestSupport {
 
+    public static final String MEMBER_TOR = "tor";
+    public static final String MEMBER_IRONMAN = "ironman";
+
     private static final Map<String, Member> TEST_MEMBER = new HashMap() {{
-        put("tor", new Member("tor", "tor00", "토르", Member.MemberType.P));
-        put("ironman", new Member("ironman", "ironman00", "아이언맨", Member.MemberType.E));
+        put(MEMBER_TOR, new Member("tor", "tor00", "토르", Member.MemberType.P));
+        put(MEMBER_IRONMAN, new Member("ironman", "ironman00", "아이언맨", Member.MemberType.E));
     }};
 
     public static Member getMember(String memberId) {
