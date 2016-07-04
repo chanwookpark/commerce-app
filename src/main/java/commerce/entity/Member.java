@@ -32,7 +32,7 @@ public class Member {
     @Column(nullable = false, length = 30)
     private String memberName;
 
-    @OneToMany(mappedBy = "owner", orphanRemoval = false, targetEntity = Address.class)
+    @OneToMany(mappedBy = "owner", orphanRemoval = true, targetEntity = Address.class, cascade = CascadeType.ALL)
     private List<Address> addressList = new ArrayList<>();
 
     @Column(nullable = false)
@@ -47,7 +47,15 @@ public class Member {
         this.memberId = memberId;
     }
 
+    public Member(String memberId, String password, String memberName, MemberType memberType) {
+        this.memberId = memberId;
+        this.password = password;
+        this.memberName = memberName;
+        this.memberType = memberType;
+    }
+
     public void addAddress(Address address) {
+        address.setOwner(this);
         this.addressList.add(address);
     }
 

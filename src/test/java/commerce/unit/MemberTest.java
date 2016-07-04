@@ -20,7 +20,7 @@ public class MemberTest {
         m.setPassword("1234");
         m.setMemberName("홍길동");
         m.setMemberType(Member.MemberType.E);
-        m.addAddress(new Address(1, true, m));
+        m.addAddress(new Address());
         m.setAffiliated(new Corporation(1, "잘나간다 회사", Arrays.asList(m)));
     }
 }
