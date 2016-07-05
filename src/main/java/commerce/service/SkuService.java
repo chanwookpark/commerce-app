@@ -15,7 +15,7 @@ public class SkuService {
 
     public List<Sku> createSku(Product product, SkuCreateOption skuCreateOption) {
         ProductOptionValueSet set = mixingProductOptionValue(product.getOptionList());
-        List<Sku> skuList = createSku(set, skuCreateOption);
+        List<Sku> skuList = createSku(product, set, skuCreateOption);
         return skuList;
     }
 
@@ -42,11 +42,17 @@ public class SkuService {
         return set;
     }
 
-    private List<Sku> createSku(ProductOptionValueSet set, SkuCreateOption skuOption) {
+    private List<Sku> createSku(Product product, ProductOptionValueSet set, SkuCreateOption skuOption) {
         List<Sku> skuList = new ArrayList<>();
         for (List<ProductOptionValue> valueList : set.get()) {
             Sku sku = new Sku();
             sku.setOptionValueList(valueList);
+            sku.setSkuDisplayName(skuOption.getNameStrategy().getName(valueList));
+            sku.setStock(skuOption.getDefaultStock());
+            sku.setRetailPrice(skuOption.getDefaultRetailPrice());
+            sku.setSalesPrice(skuOption.getDefaultSalePrice());
+            sku.setProduct(product);
+
             skuList.add(sku);
         }
         return skuList;

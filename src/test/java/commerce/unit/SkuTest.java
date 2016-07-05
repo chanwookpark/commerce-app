@@ -3,6 +3,7 @@ package commerce.unit;
 import commerce.entity.Product;
 import commerce.entity.Sku;
 import commerce.entity.SkuCreateOption;
+import commerce.service.ProductOptionBaseSkuNameStrategy;
 import commerce.service.SkuService;
 import org.junit.Test;
 
@@ -36,6 +37,28 @@ public class SkuTest {
         product.addOption(createPrintingOption());
         skuList = ss.createSku(product, new SkuCreateOption());
         assertThat(skuList.size()).isEqualTo(36);
+    }
 
+    @Test
+    public void sku속성생성() throws Exception {
+        final Product product = createTestOnlyProduct();
+        product.addOption(createColorOption());
+        product.addOption(createSizeOption());
+
+        final SkuCreateOption skuCreateOption = new SkuCreateOption();
+        skuCreateOption.setDefaultStock(100);
+        skuCreateOption.setDefaultRetailPrice(1000);
+        skuCreateOption.setDefaultSalePrice(900);
+        skuCreateOption.setNameStrategy(new ProductOptionBaseSkuNameStrategy());
+
+        List<Sku> skuList = ss.createSku(product, skuCreateOption);
+        assertThat(skuList.size()).isEqualTo(9);
+
+        skuList.forEach(s -> {
+            assertThat(s.getStock()).isEqualTo(100);
+            assertThat(s.getRetailPrice()).isEqualTo(1000);
+            assertThat(s.getSalesPrice()).isEqualTo(900);
+            assertThat(s.getSkuDisplayName()).isEqualTo(new ProductOptionBaseSkuNameStrategy().getName(s.getOptionValueList()));
+        });
     }
 }
