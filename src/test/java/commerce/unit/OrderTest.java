@@ -52,10 +52,15 @@ public class OrderTest {
         assertThat(order).isNotNull();
         assertThat(order.getOrderId()).isNotNull();
         assertThat(order.getItemList().size()).isEqualTo(2);
-        assertThat(order.getItemList().get(0).getSkuId()).isEqualTo(skuItemId1);
-        assertThat(order.getItemList().get(0).getOrderQuantity()).isEqualTo(1);
-        assertThat(order.getItemList().get(1).getSkuId()).isEqualTo(skuItemId2);
-        assertThat(order.getItemList().get(1).getOrderQuantity()).isEqualTo(2);
+
+        OrderItem orderItem1 = order.getItemBySkuId(skuItemId1);
+        assertThat(orderItem1.getSkuId()).isEqualTo(skuItemId1);
+        assertThat(orderItem1.getOrderQuantity()).isEqualTo(1);
+
+        OrderItem orderItem2 = order.getItemBySkuId(skuItemId2);
+        assertThat(orderItem2.getSkuId()).isEqualTo(skuItemId2);
+        assertThat(orderItem2.getOrderQuantity()).isEqualTo(2);
+
     }
 
     @Test

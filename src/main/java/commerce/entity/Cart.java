@@ -30,7 +30,10 @@ public class Cart {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     final Set<CartItem> itemList = new HashSet<>();
 
-    public void addItem(CartItem itemRequest) {
-        this.itemList.add(itemRequest);
+    public void addItem(CartItem item) {
+        if (item.getCart() == null || item.getCart().getCartId() != cartId) {
+            item.setCart(this);
+        }
+        this.itemList.add(item);
     }
 }

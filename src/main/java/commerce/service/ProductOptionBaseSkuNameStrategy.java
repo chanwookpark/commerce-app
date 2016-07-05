@@ -1,5 +1,6 @@
 package commerce.service;
 
+import commerce.entity.Product;
 import commerce.entity.ProductOptionValue;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class ProductOptionBaseSkuNameStrategy implements SkuNameStrategy {
 
-    public String getName(List<ProductOptionValue> optionValueList) {
+    public String getName(Product product, List<ProductOptionValue> optionValueList) {
         StringBuilder sb = new StringBuilder();
         optionValueList.stream()
                 .map(ProductOptionValue::getTargetOption)

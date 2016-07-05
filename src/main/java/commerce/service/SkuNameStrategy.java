@@ -1,5 +1,6 @@
 package commerce.service;
 
+import commerce.entity.Product;
 import commerce.entity.ProductOptionValue;
 
 import java.util.List;
@@ -9,6 +10,6 @@ import java.util.List;
  */
 public interface SkuNameStrategy {
 
-    String getName(List<ProductOptionValue> optionValueList);
+    String getName(Product product, List<ProductOptionValue> optionValueList);
 
 }

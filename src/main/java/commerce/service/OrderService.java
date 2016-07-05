@@ -21,11 +21,8 @@ public class OrderService {
     }
 
     public Order createOrder(Cart cart) {
-
         final Set<CartItem> itemList = cart.getItemList();
-
         final Order order = createOrder(itemList);
-
         return order;
     }
 

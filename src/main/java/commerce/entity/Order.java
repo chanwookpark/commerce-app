@@ -74,4 +74,11 @@ public class Order {
         this.setOrderStatus(orderStatus);
         this.orderHistory.add(orderStatus);
     }
+
+    public OrderItem getItemBySkuId(long skuId) {
+        for (OrderItem oi : getItemList()) {
+            if (skuId == oi.getSkuId()) return oi;
+        }
+        return null;
+    }
 }

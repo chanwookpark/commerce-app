@@ -1,5 +1,6 @@
 package commerce.entity;
 
+import commerce.service.ProductOptionBaseSkuNameStrategy;
 import commerce.service.SkuNameStrategy;
 
 /**
@@ -12,8 +13,8 @@ public class SkuCreateOption {
     private int defaultRetailPrice;
 
     private int defaultSalePrice;
-    
-    private SkuNameStrategy nameStrategy;
+
+    private SkuNameStrategy nameStrategy = new ProductOptionBaseSkuNameStrategy();
 
     public void setDefaultStock(int defaultStock) {
         this.defaultStock = defaultStock;

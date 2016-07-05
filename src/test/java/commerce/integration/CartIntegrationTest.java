@@ -7,6 +7,7 @@ import commerce.entity.Member;
 import commerce.entity.Sku;
 import commerce.repository.CartJpaRepository;
 import commerce.repository.MemberJpaRepository;
+import commerce.repository.SkuJpaRepository;
 import commerce.service.CartService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,15 +43,19 @@ public class CartIntegrationTest {
     @Autowired
     CartJpaRepository cr;
 
+    @Autowired
+    SkuJpaRepository sr;
+
     @Test
     public void 장바구니_상품추가() throws Exception {
         final Member member = getMember(MEMBER_TOR);
         mr.save(member);
 
         final Sku addedItem = new Sku(); //sku 저장 필요
-        addedItem.setSkuId(1000);
         addedItem.setStock(100); // 판매 가능 재고 100개로...
-        em.persist(addedItem);
+        addedItem.setRetailPrice(500);
+        addedItem.setSalesPrice(400);
+        sr.save(addedItem);
 
         Cart cart = new Cart();
         cart.setOwner(member);

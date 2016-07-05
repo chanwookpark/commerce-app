@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CartService {
 
-    @Autowired
-    CartJpaRepository cr;
+    CartJpaRepository cartRepository;
 
     @Transactional
     public void addProduct(Cart cart, Sku addedItem, int orderQuantity) {
@@ -29,6 +28,11 @@ public class CartService {
 
         cart.addItem(new CartItem(addedItem, orderQuantity));
 
-        cr.save(cart);
+        cartRepository.save(cart);
+    }
+
+    @Autowired
+    public void setCartRepository(CartJpaRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
 }
