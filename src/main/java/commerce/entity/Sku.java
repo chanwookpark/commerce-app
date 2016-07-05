@@ -59,4 +59,5 @@ public class Sku {
     public boolean hasQuantity(int orderQuantity) {
         return getStock() >= orderQuantity;
     }
+
 }

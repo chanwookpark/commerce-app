@@ -25,7 +25,7 @@ public class ProductTestSupport {
         return product;
     }
 
-    public static ProductOption createProductOptionToColor() {
+    public static ProductOption createColorOption() {
         ProductOption option = new ProductOption();
         option.setOptionName("표준 티셔츠 색상");
         option.setDisplayName("색상");
@@ -36,7 +36,7 @@ public class ProductTestSupport {
         return option;
     }
 
-    public static ProductOption createProductOptionToSize() {
+    public static ProductOption createSizeOption() {
         ProductOption option = new ProductOption();
         option.setDisplayName("사이즈");
         option.setOptionName("표준 티셔츠 사이즈");
@@ -47,7 +47,7 @@ public class ProductTestSupport {
         return option;
     }
 
-    public static ProductOption createProductOptionToPrinting() {
+    public static ProductOption createPrintingOption() {
         final ProductOption option = new ProductOption();
         option.setDisplayName("프린팅");
         option.setOptionName("어벤저스 티셔츠 프린팅");
@@ -55,6 +55,7 @@ public class ProductTestSupport {
         option.addProductOptionValue(new ProductOptionValue("tor", "토르"));
         option.addProductOptionValue(new ProductOptionValue("ironman", "아이언맨"));
         option.addProductOptionValue(new ProductOptionValue("hulk", "헐크"));
+        option.addProductOptionValue(new ProductOptionValue("captain", "캡틴"));
         return option;
     }
 

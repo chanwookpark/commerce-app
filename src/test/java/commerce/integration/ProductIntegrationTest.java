@@ -38,8 +38,8 @@ public class ProductIntegrationTest {
     @Test
     public void 상품과상품옵션생성및조합() throws Exception {
 
-        final ProductOption sizeOption = por.save(ProductTestSupport.createProductOptionToSize());
-        final ProductOption colorOption = por.save(ProductTestSupport.createProductOptionToColor());
+        final ProductOption sizeOption = por.save(ProductTestSupport.createSizeOption());
+        final ProductOption colorOption = por.save(ProductTestSupport.createColorOption());
 
         assertThat(por.findAll().size()).isEqualTo(2);
         assertThat(por.findOne(sizeOption.getOptionId())).isNotNull();
