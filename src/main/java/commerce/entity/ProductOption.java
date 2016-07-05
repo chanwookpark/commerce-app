@@ -20,7 +20,7 @@ public class ProductOption {
 
     @Id
     @GeneratedValue
-    private int optionId;
+    private long optionId;
 
     private String optionName;
 
@@ -38,4 +38,10 @@ public class ProductOption {
         this.displayName = displayName;
     }
 
+    public void addProductOptionValue(ProductOptionValue value) {
+        this.optionValueList.add(value);
+        if (value.getTargetOption() == null || value.getTargetOption().getOptionId() != this.getOptionId()) {
+            value.setTargetOption(this);
+        }
+    }
 }

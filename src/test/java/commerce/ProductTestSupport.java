@@ -1,7 +1,6 @@
 package commerce;
 
-import commerce.entity.ProductOptionValue;
-import commerce.entity.Sku;
+import commerce.entity.*;
 
 import java.util.List;
 
@@ -11,6 +10,43 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author chanwook
  */
 public class ProductTestSupport {
+
+    static ProductIdGenerator productIdGenerator = new TimebaseProductIdGenerator();
+
+    //일단 하나를 만들고 앞으로 어떻게 할지는 고민해보자
+    public static Product createTestOnlyProduct() {
+
+        Product product = new Product();
+        product.setProductId(productIdGenerator.createId());
+        product.setProductName("초대박 히트 티셔츠");
+        product.setProductType(ProductType.P);
+        product.setDisplayName("2016년 최신상 최고급 티셔츠");
+
+        return product;
+    }
+
+    public static ProductOption createProductOptionToColor() {
+        ProductOption option = new ProductOption();
+        option.setOptionName("표준 티셔츠 색상");
+        option.setDisplayName("색상");
+
+        option.addProductOptionValue(new ProductOptionValue("RED", "빨간색"));
+        option.addProductOptionValue(new ProductOptionValue("BLUE", "파란색"));
+        option.addProductOptionValue(new ProductOptionValue("YELLOW", "노란색"));
+        return option;
+    }
+
+    public static ProductOption createProductOptionToSize() {
+        ProductOption option = new ProductOption();
+        option.setDisplayName("사이즈");
+        option.setOptionName("표준 티셔츠 사이즈");
+
+        option.addProductOptionValue(new ProductOptionValue("M", "M"));
+        option.addProductOptionValue(new ProductOptionValue("L", "L"));
+        option.addProductOptionValue(new ProductOptionValue("XL", "XL"));
+        return option;
+    }
+
     public static void isEqualsProductOptionValue(ProductOptionValue optionValue, Object... values) {
         assertThat(optionValue).isNotNull();
         assertThat(optionValue.getValueId()).isEqualTo(values[0]);

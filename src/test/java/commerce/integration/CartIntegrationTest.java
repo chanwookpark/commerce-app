@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CartIntegrationTest {
 
     @Autowired
+    TestEntityManager em;
+
+    @Autowired
     CartService cs;
 
     @Autowired
@@ -44,6 +48,9 @@ public class CartIntegrationTest {
         mr.save(member);
 
         final Sku addedItem = new Sku(); //sku 저장 필요
+        addedItem.setSkuId(1000);
+        addedItem.setStock(100); // 판매 가능 재고 100개로...
+        em.persist(addedItem);
 
         Cart cart = new Cart();
         cart.setOwner(member);

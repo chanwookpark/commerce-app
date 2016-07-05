@@ -33,6 +33,11 @@ public class ProductOptionValue {
 
     private String displayName;
 
+    public ProductOptionValue(String value, String displayName) {
+        this.value = value;
+        this.displayName = displayName;
+    }
+
     public ProductOptionValue(long id, ProductOption option, String value, String displayName) {
         this.valueId = id;
         this.targetOption = option;
