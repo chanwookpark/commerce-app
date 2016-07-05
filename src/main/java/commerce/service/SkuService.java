@@ -2,7 +2,11 @@ package commerce.service;
 
 import commerce.entity.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * @author chanwook
@@ -10,7 +14,7 @@ import java.util.*;
 public class SkuService {
 
     public List<Sku> createSku(Product product, SkuCreateOption skuCreateOption) {
-        ProductOptionValueSet set = mixByProductOptionValue(product.getOptionList());
+        ProductOptionValueSet set = mixingProductOptionValue(product.getOptionList());
         List<Sku> skuList = createSku(set, skuCreateOption);
         return skuList;
     }
@@ -25,29 +29,24 @@ public class SkuService {
         return skuList;
     }
 
-    private ProductOptionValueSet mixByProductOptionValue(Set<ProductOption> optionList) {
+    private ProductOptionValueSet mixingProductOptionValue(Set<ProductOption> optionList) {
 
-        final ProductOptionValueSet result = new ProductOptionValueSet();
-
-        final Iterator<ProductOption> optionIterator = optionList.iterator();
-
-        while (optionIterator.hasNext()) {
-            final ProductOption option = optionIterator.next();
+        final ProductOptionValueSet set = new ProductOptionValueSet();
+        optionList.forEach(option -> {
             // 첫 번째 valueList인 경우에는 result가 비어있기 때문에 새 List를 만들어 넣는다
-            if (result.isEmpty()) {
-                option.getOptionValueList().stream().forEach(v -> result.createElement(v));
+            if (set.isEmpty()) {
+                option.getOptionValueList().forEach(v -> set.newValueList(v));
             } else {
-                Set<List<ProductOptionValue>> newResult = new HashSet<>();
-                for (ProductOptionValue value : option.getOptionValueList()) {
-                    result.get().stream().forEach(m -> {
-                        m.add(value);
-                        newResult.add(m);
-                    });
-                }
-                result.replace(newResult);
+                Set<List<ProductOptionValue>> currentSet = set.get();
+                ProductOptionValueSet newSet = new ProductOptionValueSet();
+
+                option.getOptionValueList().forEach(v -> {
+                    currentSet.forEach(list -> newSet.addListAfterMerge(list, v));
+                });
+                set.replaceTo(newSet);
             }
-        }
-        return result;
+        });
+        return set;
     }
 
     static class ProductOptionValueSet {
@@ -57,17 +56,22 @@ public class SkuService {
             return set;
         }
 
-        public void replace(Set<List<ProductOptionValue>> set) {
-            this.set = set;
+        public void replaceTo(ProductOptionValueSet set) {
+            this.set = set.get();
         }
 
         public boolean isEmpty() {
             return this.set.isEmpty();
         }
 
-        public void createElement(ProductOptionValue value) {
+        public void newValueList(ProductOptionValue value) {
             final List<ProductOptionValue> list = new ArrayList<>();
             list.add(value);
+            set.add(list);
+        }
+
+        public void addListAfterMerge(List<ProductOptionValue> list, ProductOptionValue... values) {
+            Stream.of(values).forEach(v -> list.add(v));
             set.add(list);
         }
     }
