@@ -1,5 +1,6 @@
 package commerce.unit;
 
+import commerce.ProductTestSupport;
 import commerce.entity.Product;
 import commerce.entity.Sku;
 import commerce.entity.SkuCreateOption;
@@ -20,13 +21,18 @@ public class SkuTest {
 
     @Test
     public void 상품옵션조합으로SKU생성() throws Exception {
-
         final Product product = createTestOnlyProduct();
         product.addOption(createProductOptionToColor());
         product.addOption(createProductOptionToSize());
 
         List<Sku> skuList = ss.createSku(product, new SkuCreateOption());
-
         assertThat(skuList.size()).isEqualTo(9);
+
+        // 3개 옵션으로 해보자
+        product.addOption(ProductTestSupport.createProductOptionToPrinting());
+
+        skuList = ss.createSku(product, new SkuCreateOption());
+        assertThat(skuList.size()).isEqualTo(27);
+
     }
 }

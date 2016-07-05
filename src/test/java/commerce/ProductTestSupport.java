@@ -47,6 +47,17 @@ public class ProductTestSupport {
         return option;
     }
 
+    public static ProductOption createProductOptionToPrinting() {
+        final ProductOption option = new ProductOption();
+        option.setDisplayName("프린팅");
+        option.setOptionName("어벤저스 티셔츠 프린팅");
+
+        option.addProductOptionValue(new ProductOptionValue("tor", "토르"));
+        option.addProductOptionValue(new ProductOptionValue("ironman", "아이언맨"));
+        option.addProductOptionValue(new ProductOptionValue("hulk", "헐크"));
+        return option;
+    }
+
     public static void isEqualsProductOptionValue(ProductOptionValue optionValue, Object... values) {
         assertThat(optionValue).isNotNull();
         assertThat(optionValue.getValueId()).isEqualTo(values[0]);
@@ -65,4 +76,5 @@ public class ProductTestSupport {
         assertThat(sku.getSalesPrice()).isEqualTo(values[3]);
         assertThat(sku.getStock()).isEqualTo(values[4]);
     }
+
 }
