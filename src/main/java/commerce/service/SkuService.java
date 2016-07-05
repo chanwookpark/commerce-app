@@ -19,6 +19,29 @@ public class SkuService {
         return skuList;
     }
 
+    private ProductOptionValueSet mixingProductOptionValue(Set<ProductOption> optionList) {
+        final ProductOptionValueSet set = new ProductOptionValueSet();
+        optionList.forEach(option -> {
+            final List<ProductOptionValue> valueList = option.getOptionValueList();
+            if (set.isEmpty()) {
+                /**
+                 * 첫 번째 valueList인 경우에는 result가 비어있기 때문에 새 List를 만들어 넣는다
+                 */
+                valueList.forEach(v -> set.newListAndMerge(v));
+            } else {
+                /**
+                 * 현재 새로운 ProductOption의 모든 Value와 조합한 새로운 set을 만들고 최종 set을 이걸로 교체
+                 */
+                Set<List<ProductOptionValue>> currentSet = set.get();
+                ProductOptionValueSet mergedSet = new ProductOptionValueSet();
+
+                valueList.forEach(v -> currentSet.forEach(list -> mergedSet.addListAndMerge(list, v)));
+                set.replaceTo(mergedSet);
+            }
+        });
+        return set;
+    }
+
     private List<Sku> createSku(ProductOptionValueSet set, SkuCreateOption skuOption) {
         List<Sku> skuList = new ArrayList<>();
         for (List<ProductOptionValue> valueList : set.get()) {
@@ -27,26 +50,6 @@ public class SkuService {
             skuList.add(sku);
         }
         return skuList;
-    }
-
-    private ProductOptionValueSet mixingProductOptionValue(Set<ProductOption> optionList) {
-
-        final ProductOptionValueSet set = new ProductOptionValueSet();
-        optionList.forEach(option -> {
-            // 첫 번째 valueList인 경우에는 result가 비어있기 때문에 새 List를 만들어 넣는다
-            if (set.isEmpty()) {
-                option.getOptionValueList().forEach(v -> set.newValueList(v));
-            } else {
-                Set<List<ProductOptionValue>> currentSet = set.get();
-                ProductOptionValueSet newSet = new ProductOptionValueSet();
-
-                option.getOptionValueList().forEach(v -> {
-                    currentSet.forEach(list -> newSet.addListAfterMerge(list, v));
-                });
-                set.replaceTo(newSet);
-            }
-        });
-        return set;
     }
 
     static class ProductOptionValueSet {
@@ -64,13 +67,12 @@ public class SkuService {
             return this.set.isEmpty();
         }
 
-        public void newValueList(ProductOptionValue value) {
+        public void newListAndMerge(ProductOptionValue value) {
             final List<ProductOptionValue> list = new ArrayList<>();
-            list.add(value);
-            set.add(list);
+            addListAndMerge(list, value);
         }
 
-        public void addListAfterMerge(List<ProductOptionValue> list, ProductOptionValue... values) {
+        public void addListAndMerge(List<ProductOptionValue> list, ProductOptionValue... values) {
             Stream.of(values).forEach(v -> list.add(v));
             set.add(list);
         }
