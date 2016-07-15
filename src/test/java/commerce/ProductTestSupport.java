@@ -73,8 +73,8 @@ public class ProductTestSupport {
         final List<ProductOptionValue> valueList = (List) values[1];
         assertThat(sku.getOptionValueList().get(0).getValueId()).isEqualTo(valueList.get(0).getValueId());
         assertThat(sku.getOptionValueList().get(1).getValueId()).isEqualTo(valueList.get(1).getValueId());
-        assertThat(sku.getRetailPrice()).isEqualTo(values[2]);
-        assertThat(sku.getSalesPrice()).isEqualTo(values[3]);
+        assertThat(sku.getRetailPrice().getAmount()).isEqualTo(values[2]);
+        assertThat(sku.getSalesPrice().getAmount()).isEqualTo(values[3]);
         assertThat(sku.getStock()).isEqualTo(values[4]);
     }
 

@@ -35,9 +35,17 @@ public class Sku {
             inverseJoinColumns = {@JoinColumn(name = "valueId")})
     private List<ProductOptionValue> optionValueList = new ArrayList<>();
 
-    private long retailPrice;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "retailPrice"))
+    })
+    private Money retailPrice;
 
-    private long salesPrice;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column(name = "salesPrice"))
+    })
+    private Money salesPrice;
 
     private long stock; //TODO 주문 가능 수량 별도 관리하도록 추가?
 
@@ -51,7 +59,7 @@ public class Sku {
     }
 
     public Sku(long skuId, long stock, long salesPrice) {
-        this.salesPrice = salesPrice;
+        this.salesPrice = new Money(salesPrice);
         this.skuId = skuId;
         this.stock = stock;
     }

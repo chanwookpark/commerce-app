@@ -71,8 +71,8 @@ public class ProductTest {
         final long stock = 23;
 
         final Sku sku1 = new Sku(1L, ovl);
-        sku1.setRetailPrice(retailPrice);
-        sku1.setSalesPrice(salesPrice);
+        sku1.setRetailPrice(new Money(retailPrice));
+        sku1.setSalesPrice(new Money(salesPrice));
         sku1.setStock(stock);
 
         ProductTestSupport.isEqualsToSku(sku1, 1L, ovl, retailPrice, salesPrice, stock);

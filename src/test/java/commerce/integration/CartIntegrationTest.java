@@ -1,10 +1,7 @@
 package commerce.integration;
 
 import commerce.CommerceApp;
-import commerce.entity.Cart;
-import commerce.entity.CartItem;
-import commerce.entity.Member;
-import commerce.entity.Sku;
+import commerce.entity.*;
 import commerce.repository.CartJpaRepository;
 import commerce.repository.MemberJpaRepository;
 import commerce.repository.SkuJpaRepository;
@@ -53,8 +50,8 @@ public class CartIntegrationTest {
 
         final Sku addedItem = new Sku(); //sku 저장 필요
         addedItem.setStock(100); // 판매 가능 재고 100개로...
-        addedItem.setRetailPrice(500);
-        addedItem.setSalesPrice(400);
+        addedItem.setRetailPrice(new Money(500));
+        addedItem.setSalesPrice(new Money(400));
         sr.save(addedItem);
 
         Cart cart = new Cart();

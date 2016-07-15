@@ -1,24 +1,26 @@
 package commerce.entity;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author chanwook
  */
+@Getter
 public class OrderPrice {
 
     private List<OrderItemPrice> orderItemPriceList = new ArrayList<>();
 
-    public void addItemPrice(long itemId, long orderItemPrice) {
+    public void addItemPrice(long itemId, Money orderItemPrice) {
         this.orderItemPriceList.add(new OrderItemPrice(itemId, orderItemPrice));
     }
 
-    public List<OrderItemPrice> getOrderItemPriceList() {
-        return orderItemPriceList;
-    }
-
     public long calculate() {
-        return orderItemPriceList.stream().mapToLong(OrderItemPrice::getOrderItemPrice).sum();
+        return orderItemPriceList.stream()
+                .map(OrderItemPrice::getOrderItemPrice)
+                .mapToLong(Money::getAmount)
+                .sum();
     }
 }

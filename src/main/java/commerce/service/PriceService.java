@@ -1,5 +1,6 @@
 package commerce.service;
 
+import commerce.entity.Money;
 import commerce.entity.Order;
 import commerce.entity.OrderPrice;
 import commerce.entity.Sku;
@@ -17,8 +18,8 @@ public class PriceService {
         order.getItemList().forEach(orderItem -> {
             Sku sku = productRepository.findSku(orderItem.getSkuId());
 
-            final long salesPrice = sku.getSalesPrice();
-            orderPrice.addItemPrice(orderItem.getItemId(), salesPrice * orderItem.getOrderQuantity());
+            final Money salesPrice = sku.getSalesPrice();
+            orderPrice.addItemPrice(orderItem.getItemId(), salesPrice.multiply(orderItem.getOrderQuantity()));
         });
 
         return orderPrice;

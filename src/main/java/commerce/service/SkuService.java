@@ -49,8 +49,8 @@ public class SkuService {
             sku.setOptionValueList(valueList);
             sku.setSkuDisplayName(skuOption.getNameStrategy().getName(product, valueList));
             sku.setStock(skuOption.getDefaultStock());
-            sku.setRetailPrice(skuOption.getDefaultRetailPrice());
-            sku.setSalesPrice(skuOption.getDefaultSalePrice());
+            sku.setRetailPrice(new Money(skuOption.getDefaultRetailPrice()));
+            sku.setSalesPrice(new Money(skuOption.getDefaultSalePrice()));
             sku.setProduct(product);
 
             skuList.add(sku);

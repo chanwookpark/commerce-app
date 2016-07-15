@@ -56,8 +56,8 @@ public class SkuTest {
 
         skuList.forEach(s -> {
             assertThat(s.getStock()).isEqualTo(100);
-            assertThat(s.getRetailPrice()).isEqualTo(1000);
-            assertThat(s.getSalesPrice()).isEqualTo(900);
+            assertThat(s.getRetailPrice().getAmount()).isEqualTo(1000);
+            assertThat(s.getSalesPrice().getAmount()).isEqualTo(900);
             assertThat(s.getSkuDisplayName()).isEqualTo(new ProductOptionBaseSkuNameStrategy().getName(product, s.getOptionValueList()));
         });
     }
