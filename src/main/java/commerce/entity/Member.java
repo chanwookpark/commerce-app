@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,6 +40,9 @@ public class Member {
     @Column(nullable = false)
     private MemberType memberType;
 
+    @Column(nullable = false, length = 30, unique = true)
+    private String email;
+
     @ManyToOne(optional = true)
     private Corporation affiliated;
 
@@ -47,16 +52,41 @@ public class Member {
         this.memberId = memberId;
     }
 
-    public Member(String memberId, String password, String memberName, MemberType memberType) {
+    public Member(String memberId, String password, String memberName, MemberType memberType, String email) {
         this.memberId = memberId;
         this.password = password;
         this.memberName = memberName;
         this.memberType = memberType;
+        this.email = email;
     }
 
     public void addAddress(Address address) {
         address.setOwner(this);
         this.addressList.add(address);
+    }
+
+    /**
+     * 비즈니스 키(3번 케이스) 비교 구현
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Member)) return false;
+
+        Member member = (Member) o;
+
+        return new EqualsBuilder()
+                .append(memberId, member.getMemberId())
+                .append(email, member.getEmail())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(memberId).append(email).toHashCode();
     }
 
     //TODO enum 공통화?
