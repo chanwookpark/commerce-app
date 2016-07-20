@@ -37,15 +37,18 @@ public class Member {
     @OneToMany(mappedBy = "owner", orphanRemoval = true, targetEntity = Address.class, cascade = CascadeType.ALL)
     private List<Address> addressList = new ArrayList<>();
 
-    @Column(nullable = false)
-    private MemberType memberType;
-
     @Column(nullable = false, length = 30, unique = true)
     private String email;
 
     @ManyToOne(optional = true)
     private Corporation affiliated;
 
+    @Column(nullable = false, length = 1)
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
+    @Column(nullable = false, length = 1)
+    @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;
 
     public Member(String memberId) {

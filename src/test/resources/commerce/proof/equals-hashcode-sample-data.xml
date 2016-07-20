@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <Member memberNumber="1001" memberId="tor" password="tor00" memberName="토르" MemberType="0" email="tor@mail.com"/>
-    <Member memberNumber="1002" memberId="ironman" password="ironman00" memberName="아이언맨" MemberType="1"
-            email="ironman@mail.com"/>
-</dataset>

@@ -3,8 +3,8 @@ package commerce.proof;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import commerce.CommerceApp;
-import commerce.entity.Member;
-import commerce.repository.MemberJpaRepository;
+import commerce.entity.ProductOption;
+import commerce.repository.ProductOptionJpaRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +18,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,20 +27,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author chanwook
  */
 @RunWith(SpringRunner.class)
+@SpringBootTest(classes = CommerceApp.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest(classes = CommerceApp.class)
 @TestExecutionListeners(mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS,
         listeners = {DbUnitTestExecutionListener.class})
-@DatabaseSetup("equals-hashcode-sample-data.xml")
-public class EqualsAndHashcodeTest {
+@DatabaseSetup("sample-data.xml")
+public class EqualsAndHashcodeByPrimaryKeyTest {
 
     TestEntityManager em1;
 
     TestEntityManager em2;
-
-    @Autowired
-    MemberJpaRepository mr;
 
     @Autowired
     @Qualifier("entityManagerFactory")
@@ -47,6 +46,9 @@ public class EqualsAndHashcodeTest {
     @Autowired
     @Qualifier("entityManagerFactoryMore")
     EntityManagerFactory emf2;
+
+    @Autowired
+    ProductOptionJpaRepository por;
 
     @Before
     public void setUp() throws Exception {
@@ -60,22 +62,39 @@ public class EqualsAndHashcodeTest {
      * @throws Exception
      */
     @Test
-    public void 비즈니스키로구현_동일세션에서조회한엔티티비교() throws Exception {
-//        final Member newMember = MemberTestSupport.getMember("tor");
-//        mr.saveAndFlush(newMember);
+    public void 동일세션에서조회한엔티티비교() throws Exception {
 
-        final Member m1 = mr.findOne(1001l);
-        final Member m2 = mr.findOne(1001l);
+        final ProductOption po1 = por.findOne(2001L);
+        final ProductOption po2 = por.findOne(2001L);
 
-        assertThat(m1.equals(m2)).isTrue();
+        assertThat(po1.equals(po2)).isTrue();
     }
 
     @Test
-    public void 비즈니스키로구현_다른세션에조회한엔티티비교() throws Exception {
+    public void 다른세션에조회한엔티티비교() throws Exception {
 
-        final Member m1 = em1.find(Member.class, 1002l);
-        final Member m2 = em2.find(Member.class, 1002l);
+        final ProductOption po1 = em1.find(ProductOption.class, 2001L);
+        final ProductOption po2 = em2.find(ProductOption.class, 2001L);
 
-        assertThat(m1.equals(m2)).isTrue();
+        assertThat(po1.equals(po2)).isTrue();
     }
+
+    @Test
+    public void SET에직접저장() throws Exception {
+        Set<ProductOption> set = new HashSet<>();
+        final long optionId = 2001L;
+
+        // 조회해서 SET에 저장하고..
+        final ProductOption po1 = por.findOne(optionId);
+        set.add(po1);
+
+        assertThat(set.size()).isEqualTo(1);
+
+        // 세션에서 다시 조회해도 동일한 객체니 SET은 사이즈가 1
+        final ProductOption po2 = por.findOne(optionId);
+        assertThat(po1.equals(po2)).isTrue();
+        set.add(po2);
+        assertThat(set.size()).isEqualTo(1);
+    }
+
 }

@@ -3,6 +3,8 @@ package commerce.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class ProductOption {
     @OneToMany(mappedBy = "targetOption")
     private List<ProductOptionValue> optionValueList = new ArrayList<>();
 
-    public ProductOption(int id, String name, String displayName) {
+    public ProductOption(long id, String name, String displayName) {
         this.optionId = id;
         this.optionName = name;
         this.displayName = displayName;
@@ -43,5 +45,20 @@ public class ProductOption {
         if (value.getTargetOption() == null || value.getTargetOption().getOptionId() != this.getOptionId()) {
             value.setTargetOption(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductOption)) return false;
+
+        ProductOption option = (ProductOption) o;
+
+        return new EqualsBuilder().append(optionId, option.getOptionId()).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(optionId).toHashCode();
     }
 }

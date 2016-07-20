@@ -56,13 +56,12 @@ public class JpaConfig {
         vendorAdapter.setShowSql(true);
         vendorAdapter.setDatabase(Database.MYSQL);
         vendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
-        vendorAdapter.getJpaPropertyMap().put("spring.jpa.hibernate.ddl-auto", "update");
-        vendorAdapter.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("commerce");
         factory.setDataSource(dataSource);
+        factory.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
         factory.afterPropertiesSet();
 
         return factory.getObject();
