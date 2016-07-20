@@ -27,7 +27,7 @@ public class Sku {
     @JoinColumn(name = "productId")
     private Product product;
 
-    private String skuDisplayName;
+    private String displayName;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "SKU_PRD_ATTR_VALUE",

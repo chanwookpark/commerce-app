@@ -11,4 +11,9 @@
     <ProductOption optionId="2001" displayName="사이즈" optionName="표준 티셔츠 사이즈"/>
     <ProductOption optionId="2002" displayName="색상" optionName="표준 티셔츠 색상"/>
 
+    <Product productId="3001"/>
+
+    <Sku skuId="4001" displayName="X라지-노란색" retailPrice="1000" salesPrice="900" stock="10" productId="3001"/>
+    <Sku skuId="4002" displayName="X라지-빨간색" retailPrice="1000" salesPrice="900" stock="5" productId="3001"/>
+    <Sku skuId="4003" displayName="X라지-파란색" retailPrice="1000" salesPrice="900" stock="0" productId="3001"/>
 </dataset>

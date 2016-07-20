@@ -13,7 +13,7 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long>, QueryD
 
     List<Member> findByMemberName(String memberName);
 
-    List<Member> findByMemberNumberLike(String memberNumber);
+//    List<Member> findByMemberNumberLike(String memberNumber);
 
     List<Member> findByMemberTypeAndMemberStatus(Member.MemberType type, Member.MemberStatus status);
 
