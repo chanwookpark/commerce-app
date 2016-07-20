@@ -61,7 +61,12 @@ public class JpaConfig {
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("commerce");
         factory.setDataSource(dataSource);
+//        factory.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "create-drop");
         factory.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "update");
+        factory.getJpaPropertyMap().put("hibernate.physical_naming_strategy",
+                "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+        factory.getJpaPropertyMap().put("hibernate.implicit_naming_strategy",
+                "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy");
         factory.afterPropertiesSet();
 
         return factory.getObject();

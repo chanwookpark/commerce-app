@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 
-    <Member memberNumber="1001" memberId="tor" password="tor00" memberName="토르" MemberType="P" email="tor@mail.com"
-            memberStatus="A"/>
-    <Member memberNumber="1002" memberId="ironman" password="ironman00" memberName="아이언맨" MemberType="E"
-            email="ironman@mail.com" memberStatus="A"/>
-    <Member memberNumber="1003" memberId="spiderman" password="spiderman00" memberName="스파이더맨" MemberType="P"
-            email="spiderman@mail.com" memberStatus="A"/>
+    <MEMBER MEMBER_NUMBER="1001" MEMBER_ID="tor" PASSWORD="tor00" MEMBER_NAME="토르" MEMBER_TYPE="P" EMAIL="tor@mail.com"
+            MEMBER_STATUS="A"/>
+    <MEMBER MEMBER_NUMBER="1002" MEMBER_ID="ironman" PASSWORD="ironman00" MEMBER_NAME="아이언맨" MEMBER_TYPE="E"
+            EMAIL="ironman@mail.com" MEMBER_STATUS="A"/>
+    <MEMBER MEMBER_NUMBER="1003" MEMBER_ID="spiderman" PASSWORD="spiderman00" MEMBER_NAME="스파이더맨" MEMBER_TYPE="P"
+            EMAIL="spiderman@mail.com" MEMBER_STATUS="A"/>
 
-    <ProductOption optionId="2001" displayName="사이즈" optionName="표준 티셔츠 사이즈"/>
-    <ProductOption optionId="2002" displayName="색상" optionName="표준 티셔츠 색상"/>
+    <PRODUCT_OPTION OPTION_ID="2001" DISPLAY_NAME="사이즈" OPTION_NAME="표준 티셔츠 사이즈"/>
+    <PRODUCT_OPTION OPTION_ID="2002" DISPLAY_NAME="색상" OPTION_NAME="표준 티셔츠 색상"/>
 
-    <Product productId="3001"/>
+    <PRODUCT PRODUCT_ID="3001"/>
 
-    <Sku skuId="4001" displayName="X라지-노란색" retailPrice="1000" salesPrice="900" stock="10" productId="3001"/>
-    <Sku skuId="4002" displayName="X라지-빨간색" retailPrice="1000" salesPrice="900" stock="5" productId="3001"/>
-    <Sku skuId="4003" displayName="X라지-파란색" retailPrice="1000" salesPrice="900" stock="0" productId="3001"/>
+    <Sku SKU_ID="4001" DISPLAY_NAME="X라지-노란색" RETAIL_PRICE="1000" SALES_PRICE="900" STOCK="10" PRODUCT_ID="3001"/>
+    <Sku SKU_ID="4002" DISPLAY_NAME="X라지-빨간색" RETAIL_PRICE="1000" SALES_PRICE="900" STOCK="5" PRODUCT_ID="3001"/>
+    <Sku SKU_ID="4003" DISPLAY_NAME="X라지-파란색" RETAIL_PRICE="1000" SALES_PRICE="900" STOCK="0" PRODUCT_ID="3001"/>
 </dataset>
