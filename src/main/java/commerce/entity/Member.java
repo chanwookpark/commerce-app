@@ -22,7 +22,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNumber;
 
     @Column(nullable = false, unique = true, updatable = false, length = 20)

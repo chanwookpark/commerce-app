@@ -21,7 +21,7 @@ import java.util.Set;
 public class Cart {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cartId;
 
     @OneToOne
