@@ -51,6 +51,11 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;
 
+    //FIXME 일대일 연관 테스트를 위해 회원은 한 개의 장바구니만 갖는 걸로 일단 매핑. 고치자잉~
+    @OneToOne
+    @JoinColumn(name = "ACTVIE_CART_ID", referencedColumnName = "cartId", nullable = true)
+    private Cart cart;
+
     public Member(String memberId) {
         this.memberId = memberId;
     }

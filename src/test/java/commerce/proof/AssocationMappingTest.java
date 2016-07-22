@@ -3,7 +3,9 @@ package commerce.proof;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import commerce.CommerceApp;
+import commerce.entity.Cart;
 import commerce.entity.Member;
+import commerce.repository.CartJpaRepository;
 import commerce.repository.MemberJpaRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static commerce.entity.Member.MemberStatus;
-import static commerce.entity.Member.MemberType;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -30,23 +28,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestExecutionListeners(mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS,
         listeners = {DbUnitTestExecutionListener.class})
 @DatabaseSetup("sample-data.xml")
-public class QueryWithQueryMethodTest {
+public class AssocationMappingTest {
+
+    @Autowired
+    CartJpaRepository cr;
 
     @Autowired
     MemberJpaRepository mr;
 
     @Test
-    public void 기본조회() throws Exception {
-        // =
-        Member m = mr.findByMemberName("아이언맨");
-        assertThat(m).isNotNull();
+    public void 일대일_장바구니와회원() throws Exception {
 
-        // like - memberNumber는 long 타입이라 쿼리 메서드로는 like 검색이 안됨
-//        list = mr.findByMemberNumberLike("1%");
-//        assertThat(list.size()).isEqualTo(3);
+        final Member m = mr.findByMemberId("tor");
 
-        // and
-        List<Member> list = mr.findByMemberTypeAndMemberStatus(MemberType.P, MemberStatus.A);
-        assertThat(list.size()).isEqualTo(2);
+        cr.saveAndFlush(Cart.createCart(m));
+
+        Cart persisted = cr.findByOwner(m);
+        assertThat(persisted);
+
+        final Member memberWithCart = mr.findOne(m.getMemberNumber());
+        assertThat(memberWithCart.getCart()).isNotNull();
+
     }
 }

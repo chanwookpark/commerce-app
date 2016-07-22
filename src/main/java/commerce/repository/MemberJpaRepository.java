@@ -11,7 +11,9 @@ import java.util.List;
  */
 public interface MemberJpaRepository extends JpaRepository<Member, Long>, QueryDslPredicateExecutor<Member> {
 
-    List<Member> findByMemberName(String memberName);
+    Member findByMemberName(String memberName);
+
+    Member findByMemberId(String memberId);
 
 //    List<Member> findByMemberNumberLike(String memberNumber);
 
