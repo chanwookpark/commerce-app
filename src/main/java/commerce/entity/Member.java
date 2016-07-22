@@ -66,6 +66,7 @@ public class Member {
         this.memberName = memberName;
         this.memberType = memberType;
         this.email = email;
+        this.memberStatus = MemberStatus.H; // 가입 대기 상태
     }
 
     public void addAddress(Address address) {
