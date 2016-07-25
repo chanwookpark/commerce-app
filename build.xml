@@ -1,0 +1,41 @@
+<project name="Ant Task">
+
+    <path id="toolslib">
+        <path location="${org.hibernate:hibernate-tools:jar}"/>
+        <path location="${org.hibernate:hibernate-core:jar}"/>
+        <path location="${org.hibernate:hibernate-entitymanager:jar}"/>
+        <path location="${org.hibernate.common:hibernate-commons-annotations:jar}"/>
+        <path location="${org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar}"/>
+        <path location="${javax.transaction:javax.transaction-api:jar}"/>
+        <path location="${mysql:mysql-connector-java:jar}"/>
+        <path location="${freemarker:freemarker:jar}"/>
+        <path location="${dom4j:dom4j:jar}"/>
+        <path location="${org.javassist:javassist:jar}"/>
+        <path location="${org.springframework.boot:spring-boot:jar}"/>
+        <path location="${org.jboss.logging:jboss-logging:jar}"/>
+        <path location="${org.slf4j:slf4j-api:jar}"/>
+        <path location="${commons-logging:commons-logging:jar}"/>
+        <path location="src/test/resources/"/>
+    </path>
+
+    <target name="generateDdl">
+        <echo message="compile classpath: ${compile_classpath}"/>
+        <echo message="runtime classpath: ${runtime_classpath}"/>
+        <echo message="test classpath:    ${test_classpath}"/>
+        <echo message="plugin classpath:  ${plugin_classpath}"/>
+
+        <hibernatetool destdir="ddl-generated">
+            <jpaconfiguration persistenceunit="commerce-unit"/>
+
+            <classpath>
+                <path location="${build.dir}/target/classes"/>
+            </classpath>
+
+            <hbm2ddl outputfilename="ddl.sql" export="true" create="true" update="true" drop="true"/>
+        </hibernatetool>
+    </target>
+
+    <taskdef name="hibernatetool"
+             classname="org.hibernate.tool.ant.HibernateToolTask"
+             classpathref="toolslib"/>
+</project>
