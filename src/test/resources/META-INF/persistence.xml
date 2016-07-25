@@ -3,13 +3,34 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="commerce-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--FIXME hibernate tool에서 auto detect가 안 먹혀서 일단 적어둔다..ㅠㅠ -->
+        <class>commerce.entity.Address</class>
+        <class>commerce.entity.Cart</class>
+        <class>commerce.entity.CartItem</class>
+        <class>commerce.entity.Category</class>
+        <class>commerce.entity.Corporation</class>
+        <class>commerce.entity.Member</class>
+        <!--<class>commerce.entity.Order</class>-->
+        <!--<class>commerce.entity.OrderItem</class>-->
+        <!--<class>commerce.entity.OrderPrice</class>-->
+        <class>commerce.entity.Product</class>
+        <class>commerce.entity.ProductOption</class>
+        <class>commerce.entity.ProductOptionValue</class>
+        <class>commerce.entity.Shop</class>
+        <class>commerce.entity.Sku</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <shared-cache-mode>ALL</shared-cache-mode>
+        <validation-mode>AUTO</validation-mode>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/commerce"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="commerce"/>
             <property name="hibernate.connection.password" value="1234"/>
-            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.physical_naming_strategy"
                       value="org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"/>
             <property name="hibernate.implicit_naming_strategy"

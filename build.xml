@@ -14,7 +14,13 @@
         <path location="${org.springframework.boot:spring-boot:jar}"/>
         <path location="${org.jboss.logging:jboss-logging:jar}"/>
         <path location="${org.slf4j:slf4j-api:jar}"/>
+        <path location="${org.slf4j:log4j-over-slf4j:jar}"/>
+        <path location="${ch.qos.logback:logback-classic:jar}"/>
+        <path location="${ch.qos.logback:logback-core:jar}"/>
         <path location="${commons-logging:commons-logging:jar}"/>
+        <path location="target/classes"/>
+        <path location="target/test-classes"/>
+        <path location="src/main/resources/"/>
         <path location="src/test/resources/"/>
     </path>
 
@@ -28,10 +34,11 @@
             <jpaconfiguration persistenceunit="commerce-unit"/>
 
             <classpath>
-                <path location="${build.dir}/target/classes"/>
+                <path location="target/classes"/>
+                <path location="target/test-classes"/>
             </classpath>
 
-            <hbm2ddl outputfilename="ddl.sql" export="true" create="true" update="true" drop="true"/>
+            <hbm2ddl outputfilename="ddl.sql" export="false" create="true" update="false" drop="true"/>
         </hibernatetool>
     </target>
 

@@ -110,3 +110,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+
+# HibernateTool DDL file
+ddl-generated/*.sql
