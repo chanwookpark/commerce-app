@@ -20,8 +20,8 @@
         <class>commerce.entity.Shop</class>
         <class>commerce.entity.Sku</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <shared-cache-mode>ALL</shared-cache-mode>
-        <validation-mode>AUTO</validation-mode>
+        <!--<shared-cache-mode>ALL</shared-cache-mode>-->
+        <!--<validation-mode>AUTO</validation-mode>-->
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/commerce"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
@@ -29,7 +29,7 @@
             <property name="hibernate.connection.password" value="1234"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="validate"/>-->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.physical_naming_strategy"
                       value="org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy"/>

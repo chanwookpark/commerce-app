@@ -172,6 +172,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             -->
+            <!-- 참조: http://maven.apache.org/plugins/maven-antrun-plugin/ -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -185,7 +186,7 @@
                         <property name="plugin_classpath" refid="maven.plugin.classpath"/>
 
                         <ant antfile="${basedir}/build.xml">
-                            <target name="generateDdl"/>
+                            <target name="generate-ddl"/>
                         </ant>
                     </target>
                 </configuration>

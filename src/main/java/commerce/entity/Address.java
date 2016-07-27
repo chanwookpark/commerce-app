@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long addressId;
 
     @Column(nullable = false)
@@ -28,11 +28,14 @@ public class Address {
     @Column(length = 6)
     private String zipCode;
 
-    @Column(length = 100)
+    @Column(length = 50)
     private String addressFirst;
 
     @Column(length = 100)
     private String addressSecond;
+
+    @Column(length = 100)
+    private String testField10;
 
     @ManyToOne(optional = false)
     private Member owner;
