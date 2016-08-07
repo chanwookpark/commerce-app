@@ -1,5 +1,6 @@
 <project name="Ant Task">
 
+    <!-- DDL 생성 시 필요한 라이브러리 추가 -->
     <path id="toolslib">
         <path location="${org.hibernate:hibernate-tools:jar}"/>
         <path location="${org.hibernate:hibernate-core:jar}"/>
@@ -18,10 +19,15 @@
         <path location="${ch.qos.logback:logback-classic:jar}"/>
         <path location="${ch.qos.logback:logback-core:jar}"/>
         <path location="${commons-logging:commons-logging:jar}"/>
-        <path location="${basedir}/target/classes"/>
-        <path location="${basedir}/target/test-classes"/>
-        <path location="${basedir}/src/main/resources/"/>
-        <path location="${basedir}/src/test/resources/"/>
+    </path>
+
+    <!-- log4j 등의 설정 패스 인식을 위해 추가 -->
+    <!-- 참조: https://forum.hibernate.org/viewtopic.php?p=2287493 -->
+    <path id="hibernate-tools-classpath-config">
+        <pathelement location="${basedir}/target/classes"/>
+        <pathelement location="${basedir}/target/test-classes"/>
+        <!--<pathelement location="${basedir}/src/main/resources/"/>-->
+        <!--<pathelement location="${basedir}/src/test/resources/"/>-->
     </path>
 
     <dirname property="dir.ddl-gen" file="${basedir}/ddl-generated"/>
@@ -31,10 +37,11 @@
     <target name="generate-ddl">
 
         <!-- Update DDL -->
-        <echo message="스키마 변경 DDL (변경된 스키마가 없을 때는 빈 파일 생성됨)"/>
+        <echo message="스키마 변경 DDL (변경된 스키마가 없을 때는 빈 파일 생성)"/>
 
         <!-- FIXME destdir에서는 변수가 안 먹힘...@@>?? -->
         <hibernatetool destdir="${basedir}/ddl-generated">
+            <classpath refid="hibernate-tools-classpath-config"/>
             <jpaconfiguration persistenceunit="commerce-unit"/>
             <hbm2ddl outputfilename="ddl-update.sql" export="true" update="true" create="false" drop="false"/>
         </hibernatetool>
@@ -43,6 +50,7 @@
         <echo message="스키마 생성 DDL"/>
 
         <hibernatetool destdir="${basedir}/ddl-generated">
+            <classpath refid="hibernate-tools-classpath-config"/>
             <jpaconfiguration persistenceunit="commerce-unit"/>
             <hbm2ddl outputfilename="ddl-create.sql" export="true" create="true" update="false" drop="false"/>
         </hibernatetool>
@@ -51,6 +59,7 @@
         <echo message="스키마 삭제 DDL"/>
 
         <hibernatetool destdir="${basedir}/ddl-generated">
+            <classpath refid="hibernate-tools-classpath-config"/>
             <jpaconfiguration persistenceunit="commerce-unit"/>
             <hbm2ddl outputfilename="ddl-drop.sql" export="true" create="false" update="false" drop="true"/>
         </hibernatetool>
