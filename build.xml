@@ -25,36 +25,35 @@
     </path>
 
     <dirname property="dir.ddl-gen" file="${basedir}/ddl-generated/updated"/>
-    <dirname property="dir.updated" file="${dir.ddl-gen}/updated"/>
-    <dirname property="dir.created" file="${dir.ddl-gen}/created"/>
+    <mkdir dir="${dir.ddl-gen}"/>
 
     <!-- 참조: https://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
     <target name="generate-ddl">
 
-        <!-- Update ddl -->
-        <echo message="Generate Updated DDL (path: ${dir.updated})"/>
-
-        <mkdir dir="${basedir}/ddl-generated/updated"/>
+        <!-- Update DDL -->
+        <echo message="스키마 변경 DDL (변경된 스키마가 없을 때는 빈 파일 생성됨)"/>
 
         <!-- FIXME destdir에서는 변수가 안 먹힘...@@>?? -->
-        <hibernatetool destdir="${basedir}/ddl-generated/updated">
+        <hibernatetool destdir="${basedir}/ddl-generated">
             <jpaconfiguration persistenceunit="commerce-unit"/>
             <hbm2ddl outputfilename="ddl-update.sql" export="true" update="true"/>
         </hibernatetool>
 
-        <!-- Create drop ddl -->
-        <echo message="Generate Fully DDL (path: ${dir.created})"/>
+        <!-- Create DDL -->
+        <echo message="스키마 생성 DDL"/>
 
-        <mkdir dir="${basedir}/ddl-generated/created"/>
-
-        <!-- destdir에서는 변수가 안 먹힘...@@ -->
-        <hibernatetool destdir="${basedir}/ddl-generated/created">
+        <hibernatetool destdir="${basedir}/ddl-generated">
             <jpaconfiguration persistenceunit="commerce-unit"/>
-            <hbm2ddl outputfilename="ddl-create-drop.sql" export="true" create="true" update="false" drop="true"/>
+            <hbm2ddl outputfilename="ddl-create.sql" export="true" create="true" update="false" drop="false"/>
         </hibernatetool>
 
-        <echo message="[PATH-UPDATED] ${basedir}/ddl-generated/updated"/>
-        <echo message="[PATH-CREATE] ${basedir}/ddl-generated/created"/>
+        <!-- Drop DDL -->
+        <echo message="스키마 삭제 DDL"/>
+
+        <hibernatetool destdir="${basedir}/ddl-generated">
+            <jpaconfiguration persistenceunit="commerce-unit"/>
+            <hbm2ddl outputfilename="ddl-drop.sql" export="true" create="false" update="false" drop="true"/>
+        </hibernatetool>
     </target>
 
     <taskdef name="hibernatetool"
