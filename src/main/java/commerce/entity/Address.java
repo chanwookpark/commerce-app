@@ -34,8 +34,8 @@ public class Address {
     @Column(length = 100)
     private String addressSecond;
 
-    @Column(length = 100)
-    private String testField10;
+    @Column(length = 50)
+    private String testField111;
 
     @ManyToOne(optional = false)
     private Member owner;

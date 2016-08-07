@@ -24,7 +24,7 @@
         <path location="${basedir}/src/test/resources/"/>
     </path>
 
-    <dirname property="dir.ddl-gen" file="${basedir}/ddl-generated/updated"/>
+    <dirname property="dir.ddl-gen" file="${basedir}/ddl-generated"/>
     <mkdir dir="${dir.ddl-gen}"/>
 
     <!-- 참조: https://docs.jboss.org/tools/latest/en/hibernatetools/html/ant.html -->
@@ -36,7 +36,7 @@
         <!-- FIXME destdir에서는 변수가 안 먹힘...@@>?? -->
         <hibernatetool destdir="${basedir}/ddl-generated">
             <jpaconfiguration persistenceunit="commerce-unit"/>
-            <hbm2ddl outputfilename="ddl-update.sql" export="true" update="true"/>
+            <hbm2ddl outputfilename="ddl-update.sql" export="true" update="true" create="false" drop="false"/>
         </hibernatetool>
 
         <!-- Create DDL -->
