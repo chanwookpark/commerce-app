@@ -1,0 +1,16 @@
+{
+  "name": "commerce-app-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "description": "각종 기술과 커머스 도메인 공부를 위한 샘플 프로젝트",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.4.5"
+  },
+  "devDependencies": {},
+  "author": "chanwook",
+  "engines": {
+    "node": "4.4.x"
+  }
+}
