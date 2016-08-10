@@ -15,7 +15,7 @@ public class SampleViewController {
     @Autowired
     Environment env;
 
-    @RequestMapping("/samlpe")
+    @RequestMapping("/sample")
     public String client(ModelMap model) {
         model.put("staticHost", env.getProperty("static.host"));
         return "sample";
