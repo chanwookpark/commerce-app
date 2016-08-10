@@ -2,8 +2,8 @@ package commerce.app.proof;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import commerce.app.CommerceApp;
 import commerce.app.MemberTestSupport;
+import commerce.app.TestConfig;
 import commerce.app.entity.Member;
 import commerce.app.repository.MemberJpaRepository;
 import org.junit.Before;
@@ -29,12 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author chanwook
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CommerceApp.class)
+@SpringBootTest(classes = TestConfig.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestExecutionListeners(mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS,
         listeners = {DbUnitTestExecutionListener.class})
-@DatabaseSetup("sample-data.xml")
+@DatabaseSetup("/sample-data.xml")
 public class EqualsAndHashcodeByBusinessKeyTest {
 
     TestEntityManager em1;

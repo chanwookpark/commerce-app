@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface SkuJpaRepository extends JpaRepository<Sku, Long> {
 
-    @Query("SELECT s FROM commerce.entity.Sku s WHERE s.product.productId = ?1 AND s.stock > 0")
+    @Query("SELECT s FROM commerce.app.entity.Sku s WHERE s.product.productId = ?1 AND s.stock > 0")
     List<Sku> findByStockedProduct(String productId);
 
-    @Query("SELECT s FROM commerce.entity.Sku s WHERE s.displayName LIKE ?1%")
+    @Query("SELECT s FROM commerce.app.entity.Sku s WHERE s.displayName LIKE ?1%")
     List<Sku> findByDisplayNameLike(String displayName);
 
     @Query(value = "SELECT * FROM SKU WHERE PRODUCT_ID = ?1 AND STOCK > 0", nativeQuery = true)

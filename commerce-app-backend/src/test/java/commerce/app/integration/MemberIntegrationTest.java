@@ -1,14 +1,14 @@
 package commerce.app.integration;
 
-import commerce.app.CommerceApp;
 import commerce.app.MemberTestSupport;
-import commerce.app.service.MemberSignUpService;
+import commerce.app.TestConfig;
 import commerce.app.dto.MemberSignUpResponse;
 import commerce.app.entity.Address;
 import commerce.app.entity.Corporation;
 import commerce.app.entity.Member;
 import commerce.app.repository.CorporationJpaRepository;
 import commerce.app.repository.MemberJpaRepository;
+import commerce.app.service.MemberSignUpService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest(classes = CommerceApp.class)
+@SpringBootTest(classes = TestConfig.class)
 public class MemberIntegrationTest {
 
     @Autowired

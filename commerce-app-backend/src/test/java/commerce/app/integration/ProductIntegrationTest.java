@@ -1,7 +1,7 @@
 package commerce.app.integration;
 
-import commerce.app.CommerceApp;
 import commerce.app.ProductTestSupport;
+import commerce.app.TestConfig;
 import commerce.app.entity.Product;
 import commerce.app.entity.ProductOption;
 import commerce.app.repository.ProductJpaRepository;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-@SpringBootTest(classes = CommerceApp.class)
+@SpringBootTest(classes = TestConfig.class)
 public class ProductIntegrationTest {
 
     @Autowired

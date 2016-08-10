@@ -19,13 +19,14 @@
         <class>commerce.app.entity.ProductOptionValue</class>
         <class>commerce.app.entity.Shop</class>
         <class>commerce.app.entity.Sku</class>
+        <!-- 엔티티 추가 종료 -->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <!--<shared-cache-mode>ALL</shared-cache-mode>-->
         <!--<validation-mode>AUTO</validation-mode>-->
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/commerce"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.username" value="commerce"/>
+            <property name="hibernate.connection.username" value="commerce.app"/>
             <property name="hibernate.connection.password" value="1234"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.archive.autodetection" value="class"/>
