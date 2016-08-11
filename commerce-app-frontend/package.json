@@ -6,7 +6,8 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.4.3",
-    "express": "^4.4.5"
+    "express": "^4.4.5",
+    "mustache": "^2.2.1"
   },
   "devDependencies": {},
   "author": "chanwook",
