@@ -1,9 +1,9 @@
-// Component
-var SearchBox = React.createClass({
-    getInitialState: function () {
+class SearchBox extends React.Component {
+    getInitialState() {
         return {data: {searchProduct: []}};
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount() {
         var url = 'http://localhost:8000/api/search?keyword=마블';
         var keyword = '마블'; //TODO 파라미터 처리
 
@@ -21,8 +21,9 @@ var SearchBox = React.createClass({
                 }
             }
         );
-    },
-    render: function () {
+    }
+
+    render() {
         return (
             <div className="searchBox">
                 <h1>검색!</h1>
@@ -32,10 +33,11 @@ var SearchBox = React.createClass({
             </div>
         );
     }
-});
 
-var SearchForm = React.createClass({
-    render: function () {
+}
+
+class SearchForm extends React.Component {
+    render() {
         return (
             <form className="searchForm" onSubmit="">
                 <select>
@@ -47,20 +49,20 @@ var SearchForm = React.createClass({
             </form>
         );
     }
-});
+}
 
-var SearchCriteria = React.createClass({
-    render: function () {
+class SearchCriteria extends React.Component {
+    render() {
         return (
             <div className="searchCriteria">
                 검색조건!
             </div>
         );
     }
-});
+}
 
-var SearchProductList = React.createClass({
-    render: function () {
+class SearchProductList extends React.Component {
+    render() {
         var searchProduct = this.props.data.map(function (product) {
             return (
                 <ProductTypeA key={product.productId} displayName={product.displayName}/>
@@ -72,20 +74,6 @@ var SearchProductList = React.createClass({
             </div>
         );
     }
-});
+}
 
-var ProductTypeA = React.createClass({
-    render: function () {
-        return (
-            <div className="product-type-a">
-                <p>상품명: {this.props.displayName}</p>
-            </div>
-        );
-    }
-});
-
-// Rendering
-ReactDOM.render(
-    <SearchBox />,
-    document.getElementById('content')
-);
+export default SearchBox;

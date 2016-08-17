@@ -28,6 +28,12 @@ public class SearchController {
         return "/search";
     }
 
+    @RequestMapping("/view/search-webpack")
+    public String searchPageWithWebPack(ModelMap model) {
+        return "/search-webpack";
+    }
+
+
     @RequestMapping("/api/search")
     @ResponseBody
     public SearchContext search(ModelMap model,
