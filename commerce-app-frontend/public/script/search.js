@@ -1,4 +1,4 @@
-// Component
+/** webpack을 적용하지 않은 버전 */
 var SearchBox = React.createClass({
     getInitialState: function () {
         return {data: {searchProduct: []}};

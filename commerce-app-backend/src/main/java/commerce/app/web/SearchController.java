@@ -25,12 +25,12 @@ public class SearchController {
      */
     @RequestMapping("/view/search")
     public String searchPage(ModelMap model) {
-        return "/search";
+        return "search";
     }
 
     @RequestMapping("/view/search-webpack")
     public String searchPageWithWebPack(ModelMap model) {
-        return "/search-webpack";
+        return "search-webpack";
     }
 
 
