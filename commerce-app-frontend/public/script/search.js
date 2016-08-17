@@ -3,10 +3,8 @@ var SearchBox = React.createClass({
     getInitialState: function () {
         return {data: {searchProduct: []}};
     },
-    componentDidMount: function () {
+    searchProductByServer: function (keyword) {
         var url = 'http://localhost:8000/api/search';
-        var keyword = Commerce.util.getParameterByName('keyword');
-
         $.ajax({
                 url: url,
                 dataType: 'json',
@@ -23,11 +21,16 @@ var SearchBox = React.createClass({
             }
         );
     },
+    componentDidMount: function () {
+        var keyword = Commerce.util.getParameterByName('keyword');
+        this.searchProductByServer(keyword);
+    },
     render: function () {
+        var keyword = Commerce.util.getParameterByName('keyword');
         return (
             <div className="searchBox">
                 <h1>검색!</h1>
-                <SearchForm />
+                <SearchForm searchProductByServer={this.searchProductByServer} keyword={keyword}/>
                 <SearchCriteria data={this.state.data.criteria}/>
                 <SearchProductList data={this.state.data.searchProduct}/>
             </div>
@@ -36,14 +39,30 @@ var SearchBox = React.createClass({
 });
 
 var SearchForm = React.createClass({
+    getInitialState: function () {
+        return {keyword: ''};
+    },
+    handleSubmit: function (e) {
+        e.preventDefault();
+        var keyword = this.state.keyword.trim();
+        this.props.searchProductByServer(keyword);
+    },
+    handleChange: function (event) {
+        this.setState({keyword: event.target.value});
+    },
     render: function () {
+        // this.state.keyword = this.props.keyword; // 갈아치기??
         return (
-            <form className="searchForm" onSubmit="">
+            <form className="searchForm" onSubmit={this.handleSubmit}>
                 <select>
                     <option value="C1">전체</option>
                     <option value="C2">전자/TV</option>
                 </select>
-                <input name="searchKeyword" type="text"/>
+                <input type="text"
+                       value={this.state.keyword}
+                       onChange={this.handleChange}
+                       placeholder="검색어를 입력하세요!"
+                />
                 <input type="submit" value="검색"/>
             </form>
         );
@@ -75,6 +94,7 @@ var SearchProductList = React.createClass({
     }
 });
 
+//TODO webpack이나 browerify 등을 적용해 컴포넌트 파일을 분리해 관리하도록 개선
 var ProductTypeA = React.createClass({
     render: function () {
         return (
