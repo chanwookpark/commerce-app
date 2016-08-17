@@ -17,7 +17,6 @@ public class SampleViewController {
 
     @RequestMapping("/sample")
     public String client(ModelMap model) {
-        model.put("staticHost", env.getProperty("static.host"));
         return "sample";
     }
 }

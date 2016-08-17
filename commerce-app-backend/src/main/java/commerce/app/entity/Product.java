@@ -29,6 +29,8 @@ public class Product {
     @JoinColumn(name = "DISPLAY_CATEGORY_ID")
     private Category displayCategory;
 
+    @Column(nullable = false, length = 1)
+    @Enumerated(EnumType.STRING)
     private ProductType productType = ProductType.P;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
