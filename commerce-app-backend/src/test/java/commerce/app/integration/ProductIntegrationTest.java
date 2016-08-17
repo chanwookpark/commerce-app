@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -56,5 +58,15 @@ public class ProductIntegrationTest {
 
         assertThat(persistedProduct).isNotNull();
         assertThat(persistedProduct.getProductId()).isEqualTo(product.getProductId());
+    }
+
+    @Test
+    public void 상품이름LIKE검색() throws Exception {
+        String param = "마블";
+
+        final List<Product> list = pr.findByProductNameLike("%" + param + "%");
+
+        assertThat(list.size()).isEqualTo(1);
+
     }
 }

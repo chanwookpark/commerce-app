@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author chanwook
  */
-public class SearchContextMap implements Serializable {
+public class SearchContext implements Serializable {
     private Object searchCriteria;
     private List<Product> searchProduct;
 

@@ -19,8 +19,10 @@ public class CommonModelAttributesHandlerInterceptor extends HandlerInterceptorA
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        final String staticHost = env.getProperty("static.host");
-        modelAndView.addObject("staticHost", staticHost);
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView mav) throws Exception {
+        if (mav != null) {
+            final String staticHost = env.getProperty("static.host");
+            mav.addObject("staticHost", staticHost);
+        }
     }
 }

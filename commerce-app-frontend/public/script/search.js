@@ -1,14 +1,17 @@
 // Component
 var SearchBox = React.createClass({
     getInitialState: function () {
-        return {data: []};
+        return {data: {searchProduct: []}};
     },
     componentDidMount: function () {
-        var url = 'http://localhost:8000/search';
+        var url = 'http://localhost:8000/api/search?keyword=마블';
+        var keyword = '마블'; //TODO 파라미터 처리
+
         $.ajax({
                 url: url,
                 dataType: 'json',
                 cache: false,
+                // data: {keyword: keyword},
                 success: function (data) {
                     this.setState({data: data});
                 }.bind(this),
@@ -25,7 +28,7 @@ var SearchBox = React.createClass({
                 <h1>검색!</h1>
                 <SearchForm />
                 <SearchCriteria data={this.state.data.criteria}/>
-                <SearchProductList data={this.state.data.productList}/>
+                <SearchProductList data={this.state.data.searchProduct}/>
             </div>
         );
     }
@@ -34,13 +37,13 @@ var SearchBox = React.createClass({
 var SearchForm = React.createClass({
     render: function () {
         return (
-            <form className="searchForm" onsubmit="">
+            <form className="searchForm" onSubmit="">
                 <select>
                     <option value="C1">전체</option>
                     <option value="C2">전자/TV</option>
                 </select>
                 <input name="searchKeyword" type="text"/>
-                <input type="submit"/>
+                <input type="submit" value="검색"/>
             </form>
         );
     }
@@ -58,15 +61,25 @@ var SearchCriteria = React.createClass({
 
 var SearchProductList = React.createClass({
     render: function () {
-        var productList = this.props.data.map(function (product) {
+        var searchProduct = this.props.data.map(function (product) {
             return (
                 <ProductTypeA displayName={product.displayName}/>
             );
         });
-
         return (
             <div className="searchProductList">
-                {productList}
+                {searchProduct}
+            </div>
+        );
+    }
+});
+
+//TODO product.js 파일로 분리 
+var ProductTypeA = React.createClass({
+    render: function () {
+        return (
+            <div class="product-type-a">
+                <p>상품명: {this.props.displayName}</p>
             </div>
         );
     }
