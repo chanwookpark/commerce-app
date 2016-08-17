@@ -63,7 +63,7 @@ var SearchProductList = React.createClass({
     render: function () {
         var searchProduct = this.props.data.map(function (product) {
             return (
-                <ProductTypeA displayName={product.displayName}/>
+                <ProductTypeA key={product.productId} displayName={product.displayName}/>
             );
         });
         return (
@@ -74,11 +74,11 @@ var SearchProductList = React.createClass({
     }
 });
 
-//TODO product.js 파일로 분리 
+//TODO product.js 파일로 분리
 var ProductTypeA = React.createClass({
     render: function () {
         return (
-            <div class="product-type-a">
+            <div className="product-type-a">
                 <p>상품명: {this.props.displayName}</p>
             </div>
         );
