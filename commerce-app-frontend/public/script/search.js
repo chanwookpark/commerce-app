@@ -4,15 +4,16 @@ var SearchBox = React.createClass({
         return {data: {searchProduct: []}};
     },
     componentDidMount: function () {
-        var url = 'http://localhost:8000/api/search?keyword=마블';
-        var keyword = '마블'; //TODO 파라미터 처리
+        var url = 'http://localhost:8000/api/search';
+        var keyword = Commerce.util.getParameterByName('keyword');
 
         $.ajax({
                 url: url,
                 dataType: 'json',
                 cache: false,
-                // data: {keyword: keyword},
+                data: {keyword: keyword},
                 success: function (data) {
+                    console.log("검색어: " + keyword);
                     this.setState({data: data});
                 }.bind(this),
                 error: function (xhr, status, err) {

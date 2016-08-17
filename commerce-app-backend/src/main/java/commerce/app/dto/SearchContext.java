@@ -1,6 +1,9 @@
 package commerce.app.dto;
 
 import commerce.app.entity.Product;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,23 +11,21 @@ import java.util.List;
 /**
  * @author chanwook
  */
+@Getter
+@Setter
 public class SearchContext implements Serializable {
+
+    private final String keyword;
+
     private Object searchCriteria;
+
     private List<Product> searchProduct;
 
-    public Object getSearchCriteria() {
-        return searchCriteria;
+    public SearchContext(String keyword) {
+        this.keyword = keyword;
     }
 
-    public void setSearchCriteria(Object searchCriteria) {
-        this.searchCriteria = searchCriteria;
-    }
-
-    public List<Product> getSearchProduct() {
-        return searchProduct;
-    }
-
-    public void setSearchProduct(List<Product> searchProduct) {
-        this.searchProduct = searchProduct;
+    public boolean isValidatedKeyword() {
+        return StringUtils.hasText(keyword);
     }
 }
