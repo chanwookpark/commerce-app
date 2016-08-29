@@ -15,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@Table(indexes = {@Index(name = "INDEX_PRD_NAME", columnList = "productName")})
 public class Product {
 
     @Id
