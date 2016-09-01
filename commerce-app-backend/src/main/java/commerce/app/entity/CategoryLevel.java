@@ -4,14 +4,16 @@ package commerce.app.entity;
  * @author chanwook
  */
 public enum CategoryLevel {
-    A, B, C, D;
+    A(1), B(2), C(3), D(4);
+
+    private final int point;
+
+    CategoryLevel(int point) {
+        this.point = point;
+    }
 
     public boolean isSubLevel(CategoryLevel categoryLevel) {
-        //TODO 개선
-        if (A.equals(this) && categoryLevel.equals(B) &&
-                B.equals(this) && categoryLevel.equals(C) &&
-                C.equals(this) && categoryLevel.equals(D)
-                ) {
+        if (this.point + 1 == categoryLevel.point) {
             return true;
         }
         return false;

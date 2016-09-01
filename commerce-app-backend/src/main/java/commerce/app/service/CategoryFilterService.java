@@ -17,27 +17,33 @@ public class CategoryFilterService {
     private final Logger logger = LoggerFactory.getLogger(CategoryFilterService.class);
 
     //TODO 통으로 개선
-    public List<ChildCategoryDto> filteringValidChildCategory(Category parentCategory, List<Category> targetChildCategory) {
-        final List<ChildCategoryDto> validList = new ArrayList<>();
-        for (Category c : targetChildCategory) {
-            // 혹시 모를 잘못된 관계를 맺고 있지 않은지 점검
-            if (!(parentCategory.getCategoryId() == c.getParentCategory().getCategoryId()) &&
-                    !(parentCategory.getCategoryLevel().isSubLevel(c.getCategoryLevel()))) {
+    public List<ChildCategoryDto> filteringValidChildCategory(Category parentCategory, List<Category> candidateChildCategoryList) {
+        final List<ChildCategoryDto> validChildCategoryList = new ArrayList<>();
+        for (Category child : candidateChildCategoryList) {
+            if (isValidatedRelationship(parentCategory, child)) {
                 logger.info("카테고리 관계가 부적절해 하위 카테고리 정보로 노출하지 않습니다. " +
-                        "관련 정보를 확인해보세요! (parentCategory.getCategoryId() ->" + c.getCategoryId() + ")");
+                        "관련 정보를 확인해보세요! (parentCategory.getCategoryId() -> {})", child.getCategoryId());
                 continue;
             }
 
-            //TODO 상품 없으면 노출하지 않음??
+            //TODO 상품 없으면 노출하지 말까??
 
-            // 노출 기간이 유효한지 확인
-            final LocalDateTime now = LocalDateTime.now();
-            if (!(now.isBefore(c.getCloseDate()) && now.isAfter(c.getOpenDate()))) {
-                logger.info("노출 시간이 해당하지 않는 카테고리입니다!(현재시간 : {}, 카테고리 노출 시작 시간: {}, 카테고리 노출 종료시간: {}", now, c.getOpenDate(), c.getCloseDate());
+            if (isValidExposeDateTime(child)) {
+                logger.info("노출 시간이 해당하지 않는 카테고리입니다! (제외된 카테고리ID: {})", child.getCategoryId());
                 continue;
             }
-            validList.add(new ChildCategoryDto(c.getCategoryId(), c.getDisplayName()));
+            validChildCategoryList.add(new ChildCategoryDto(child.getCategoryId(), child.getDisplayName()));
         }
-        return validList;
+        return validChildCategoryList;
+    }
+
+    private boolean isValidExposeDateTime(Category child) {
+        final LocalDateTime now = LocalDateTime.now();
+        return !(now.isBefore(child.getCloseDate()) && now.isAfter(child.getOpenDate()));
+    }
+
+    private boolean isValidatedRelationship(Category parentCategory, Category c) {
+        return !(parentCategory.getCategoryId() == c.getParentCategory().getCategoryId()) &&
+                !(parentCategory.getCategoryLevel().isSubLevel(c.getCategoryLevel()));
     }
 }
