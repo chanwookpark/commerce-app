@@ -34,7 +34,8 @@ public class CategoryViewControllerTest {
         final long categoryId = 1000L;
         final String displayName = "테스트매장A";
         final CategoryLevel categoryLevel = CategoryLevel.A;
-        mockingFindOneOfCategory(categoryId, displayName, categoryLevel);
+
+        mockingWhenFindOneOfCategory(categoryId, displayName, categoryLevel);
 
         //when
         final ModelMap modelMap = new ModelMap();
@@ -42,14 +43,14 @@ public class CategoryViewControllerTest {
 
         //then
         assertThat(view).isEqualTo("category/categoryA");
-        assertThat(modelMap.get("categoryShop")).isNotNull();
-        final CategoryShopDto categoryShopDto = (CategoryShopDto) modelMap.get("categoryShop");
-        assertThat(categoryShopDto.getCategoryId()).isEqualTo(categoryId);
-        assertThat(categoryShopDto.getDisplayName()).isEqualTo(displayName);
-        assertThat(categoryShopDto.getCategoryLevel()).isEqualTo(categoryLevel);
+
+        final CategoryShopDto dto = (CategoryShopDto) modelMap.get("categoryShop");
+        assertThat(dto.getCategoryId()).isEqualTo(categoryId);
+        assertThat(dto.getDisplayName()).isEqualTo(displayName);
+        assertThat(dto.getCategoryLevel()).isEqualTo(categoryLevel);
     }
 
-    private void mockingFindOneOfCategory(long categoryId, String displayName, CategoryLevel categoryLevel) {
+    private void mockingWhenFindOneOfCategory(long categoryId, String displayName, CategoryLevel categoryLevel) {
         final Category expectedCategory = new Category(categoryId, displayName, categoryLevel);
         when(categoryRepository.findOne(categoryId)).thenReturn(expectedCategory);
     }
