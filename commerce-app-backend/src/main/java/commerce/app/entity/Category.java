@@ -39,6 +39,12 @@ public class Category {
     public Category() {
     }
 
+    public Category(long categoryId, String displayName, CategoryLevel categoryLevel) {
+        this.categoryId = categoryId;
+        this.displayName = displayName;
+        this.categoryLevel = categoryLevel;
+    }
+
     public Category(long id, CategoryLevel level) {
         this.categoryId = id;
         this.categoryLevel = level;

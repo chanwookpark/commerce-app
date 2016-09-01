@@ -26,4 +26,5 @@ public class Shop {
     @ManyToOne
     private Category category;
 
+
 }
