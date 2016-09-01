@@ -22,14 +22,14 @@ public class CategoryViewControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        //TODO mvc 테스트FW 적용
+        //TODO mvc 테스트 FW 적용
         controller = new CategoryViewController();
         categoryRepository = mock(CategoryJpaRepository.class);
         controller.categoryRepository = categoryRepository;
     }
 
     @Test
-    public void 대분류카테고리매장화면() throws Exception {
+    public void 대분류카테고리매장화면_기본카테고리정보확인() throws Exception {
         //given
         final long categoryId = 1000L;
         final String displayName = "테스트매장A";

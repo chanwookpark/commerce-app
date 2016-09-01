@@ -62,7 +62,7 @@ public class JpaConfig {
         factory.setPackagesToScan("commerce.app");
         factory.setDataSource(dataSource);
         // create-drop, create,validate, update
-        factory.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "validate");
+        factory.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "create");
         factory.getJpaPropertyMap().put("hibernate.physical_naming_strategy",
                 "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
         factory.getJpaPropertyMap().put("hibernate.implicit_naming_strategy",

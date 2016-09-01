@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +28,21 @@ public class Category {
     private List<Shop> shopList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARENT_CATEGORY_ID")
     private Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory")
     private List<Category> childCategory = new ArrayList<>();
 
+    @Column(nullable = false, length = 1)
+    @Enumerated(EnumType.STRING)
     private CategoryLevel categoryLevel;
 
     private String displayName;
+
+    private LocalDateTime openDate;
+
+    private LocalDateTime closeDate;
 
     public Category() {
     }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 카테고리 매장 화면에서 사용하는 DTO
@@ -21,4 +22,5 @@ public class CategoryShopDto implements Serializable {
 
     private String displayName;
 
+    private List<ChildCategoryDto> childCategoryList;
 }
